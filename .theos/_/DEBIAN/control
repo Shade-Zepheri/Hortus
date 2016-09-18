@@ -1,0 +1,10 @@
+Package: com.shade.hortus
+Name: Hortus
+Depends: mobilesubstrate
+Architecture: iphoneos-arm
+Description: Hook's Law for iOS 9
+Maintainer: Shade Zepheri
+Author: Shade Zepheri
+Section: Tweaks
+Version: 1.0
+Installed-Size: 272
