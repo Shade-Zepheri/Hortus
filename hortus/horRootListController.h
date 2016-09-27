@@ -1,6 +1,10 @@
 #import <Preferences/PSListController.h>
-#define hortSetPath @"/private/var/mobile/Library/Preferences/com.shade.hortus.plist"
 
-@interface horRootListController : PSListController
+@interface horRootListController : PSListController {
+  NSMutableDictionary *prefs;
+  NSArray *directoryContent;
+}
+  - (NSArray *)getValues:(id)target;
+  - (void)previewAndSet:(id)value forSpecifier:(id)specifier;
 
 @end

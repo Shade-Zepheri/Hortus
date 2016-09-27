@@ -9,6 +9,9 @@ static float kDur = 1;
 
 %hook CASpringAnimation
 
+NSMutableDictionary *prefs = [[NSMutableDictionary alloc] initWithContentsOfFile:@"/private/var/mobile/Library/Preferences/com.shade.hortus.plist"];
+BOOL enabled = [[prefs objectForKey:@"enabled"] boolValue]
+
 -(void)setStiffness:(double)arg1 {
 	if(kEnabled){
 		arg1 = kStiff;
@@ -55,7 +58,6 @@ static void loadPrefs() {
        NSMutableDictionary *prefs = [[NSMutableDictionary alloc] initWithContentsOfFile:@"/private/var/mobile/Library/Preferences/com.shade.hortus.plist"];
     if(prefs)
     {
-      kEnabled = ([prefs objectForKey:@"isEnabled"] ? [[prefs objectForKey:@"isEnabled"] boolValue] : kEnabled);
 			kSenabled = ([prefs objectForKey:@"isSpringEnabled"] ? [[prefs objectForKey:@"isSpringEnabled"] boolValue] : kSenabled);
 			kStiff = ([prefs objectForKey:@"stiffness"] ? [[prefs objectForKey:@"stiffness"] floatValue] : kStiff);
 			kDamp = ([prefs objectForKey:@"damping"] ? [[prefs objectForKey:@"damping"] floatValue] : kDamp);
