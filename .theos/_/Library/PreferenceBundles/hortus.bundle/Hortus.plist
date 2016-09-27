@@ -179,7 +179,7 @@
 					<key>title</key>
 					<string>System Applications</string>
 					<key>predicate</key>
-					<string>(bundleIdentifier != "com.saurik.Cydia") and (bundleIdentifier != "eu.heinelt.ifile") and (isSystemApplication = TRUE)</string>
+					<string>(bundleIdentifier != "eu.heinelt.ifile") and (isSystemApplication = TRUE)</string>
 					<key>cell-class-name</key>
 					<string>ALSwitchCell</string>
 					<key>icon-size</key>

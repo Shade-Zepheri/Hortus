@@ -11,44 +11,28 @@ static float kDur = 1;
 
 -(void)setStiffness:(double)arg1 {
 	if(kEnabled){
-		if(kAppExe){
-			%orig(arg1);
-		} else {
-			arg1 = kStiff;
-		}
+		arg1 = kStiff;
 	}
 	%orig(arg1);
 }
 
 -(void)setDamping:(double)arg1 {
 	if(kEnabled){
-		if(kAppExe){
-			%orig(arg1);
-		} else {
-			arg1 = kDamp;
-		}
+		arg1 = kStiff;
 	}
 	%orig(arg1);
 }
 
 -(void)setMass:(double)arg1 {
 	if(kEnabled){
-		if(kAppExe){
-			%orig(arg1);
-		} else {
-			arg1 = kMass;
-		}
+		arg1 = kStiff;
 	}
 	%orig(arg1);
 }
 
 -(void)setVelocity:(double)arg1 {
 	if(kEnabled){
-		if(kAppExe){
-			%orig(arg1);
-		} else {
-			arg1 = kVelo;
-		}
+		arg1 = kStiff;
 	}
 	%orig(arg1);
 }
@@ -71,17 +55,6 @@ static void loadPrefs() {
        NSMutableDictionary *prefs = [[NSMutableDictionary alloc] initWithContentsOfFile:@"/private/var/mobile/Library/Preferences/com.shade.hortus.plist"];
     if(prefs)
     {
-			NSString *bundleID = [[NSBundle mainBundle] bundleIdentifier];
-		  NSString *settingsKeyPrefix = @"Exempt-";
-
-		  if ([[prefs allKeys] containsObject:[NSString stringWithFormat:@"%@%@", settingsKeyPrefix, bundleID]]) {
-		    if ([[prefs objectForKey:[NSString stringWithFormat:@"%@%@", settingsKeyPrefix, bundleID]] boolValue]) {
-		      kAppExe =  YES;
-		    } else {
-		      kAppExe =  NO;
-		    }
-		  }
-
       kEnabled = ([prefs objectForKey:@"isEnabled"] ? [[prefs objectForKey:@"isEnabled"] boolValue] : kEnabled);
 			kSenabled = ([prefs objectForKey:@"isSpringEnabled"] ? [[prefs objectForKey:@"isSpringEnabled"] boolValue] : kSenabled);
 			kStiff = ([prefs objectForKey:@"stiffness"] ? [[prefs objectForKey:@"stiffness"] floatValue] : kStiff);
