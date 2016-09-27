@@ -1,4 +1,4 @@
-export THEOS_DEVICE_IP=192.168.254.4
+export THEOS_DEVICE_IP=192.168.254.2
 
 ARCHS = armv7 arm64
 

@@ -32,6 +32,20 @@
 		</dict>
 		<dict>
 			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>com.shade.hortus</string>
+			<key>PostNotification</key>
+			<string>com.shade.hortus/settingschanged</string>
+			<key>key</key>
+			<string>isSpringEnabled</string>
+			<key>label</key>
+			<string>Spring Enabled</string>
+		</dict>
+		<dict>
+			<key>cell</key>
 			<string>PSEditTextCell</string>
 			<key>default</key>
 			<string>300</string>
@@ -132,6 +146,59 @@
 				<string>0.142</string>
 				<string>0.125</string>
 				<string>0.11</string>
+			</array>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string></string>
+		</dict>
+		<dict>
+			<key>bundle</key>
+			<string>AppList</string>
+			<key>cell</key>
+			<string>PSLinkCell</string>
+			<key>isController</key>
+			<string>1</string>
+			<key>label</key>
+			<string>Exempt Applications</string>
+			<key>ALSettingsPath</key>
+			<string>/private/var/mobile/Library/Preferences/com.shade.hortus.plist</string>
+			<key>ALSettingsKeyPrefix</key>
+			<string>Exempt-</string>
+			<key>ALChangeNotification</key>
+			<string>com.shade.hortus/settingschanged</string>
+			<key>PostNotification</key>
+			<string>com.shade.hortus/settingschanged</string>
+			<key>ALAllowsSelection</key>
+			<string>1</string>
+			<key>ALSectionDescriptors</key>
+			<array>
+				<dict>
+					<key>title</key>
+					<string>System Applications</string>
+					<key>predicate</key>
+					<string>(bundleIdentifier != "eu.heinelt.ifile") and (isSystemApplication = TRUE)</string>
+					<key>cell-class-name</key>
+					<string>ALSwitchCell</string>
+					<key>icon-size</key>
+					<string>29</string>
+					<key>suppress-hidden-apps</key>
+					<string>1</string>
+				</dict>
+				<dict>
+					<key>title</key>
+					<string>User Applications</string>
+					<key>predicate</key>
+					<string>isSystemApplication = FALSE</string>
+					<key>cell-class-name</key>
+					<string>ALSwitchCell</string>
+					<key>icon-size</key>
+					<string>29</string>
+					<key>suppress-hidden-apps</key>
+					<string>1</string>
+				</dict>
 			</array>
 		</dict>
 		<dict>

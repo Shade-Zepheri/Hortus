@@ -1,6 +1,6 @@
 Package: com.shade.hortus
 Name: Hortus
-Depends: mobilesubstrate, preferenceloader
+Depends: mobilesubstrate, preferenceloader, applist
 Version: 1.0
 Architecture: iphoneos-arm
 Description: Hook's Law for iOS 9
