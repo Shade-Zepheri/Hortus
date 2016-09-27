@@ -1,20 +1,16 @@
 static BOOL enabled;
-static float stiff;
-static float damp;
-static float mass;
-static float velo;
+static float stiff = 300;
+static float damp = 30;
+static float mass = 1;
+static float velo = 20;
 static float dur;
-#define settingsPath "com.shade.hortus"
-#define postNotif "com.shade.hortus/settingschanged"
+#define SETTINGSFILENEW "com.shade.hortus"
+#define PREFERENCES_CHANGED_NOTIFICATION "com.shade.hortus/settingschanged"
 
-static void loadPrefs() {
-    CFPreferencesAppSynchronize(CFSTR(settingsPath));
-    enabled = !CFPreferencesCopyAppValue(CFSTR("enabled"), CFSTR(settingsPath)) ? YES : [(id)CFBridgingRelease(CFPreferencesCopyAppValue(CFSTR("enabled"), CFSTR(settingsPath))) boolValue];
-		stiff = !CFPreferencesCopyAppValue(CFSTR("stiff"), CFSTR(settingsPath)) ? 300 : [(id)CFBridgingRelease(CFPreferencesCopyAppValue(CFSTR("stiff"), CFSTR(settingsPath))) floatValue];
-		damp = !CFPreferencesCopyAppValue(CFSTR("damp"), CFSTR(settingsPath)) ? 30 : [(id)CFBridgingRelease(CFPreferencesCopyAppValue(CFSTR("damp"), CFSTR(settingsPath))) floatValue];
-		mass = !CFPreferencesCopyAppValue(CFSTR("mass"), CFSTR(settingsPath)) ? 1 : [(id)CFBridgingRelease(CFPreferencesCopyAppValue(CFSTR("mass"), CFSTR(settingsPath))) floatValue];
-		velo = !CFPreferencesCopyAppValue(CFSTR("velo"), CFSTR(settingsPath)) ? 20 : [(id)CFBridgingRelease(CFPreferencesCopyAppValue(CFSTR("velo"), CFSTR(settingsPath))) floatValue];
-		dur = !CFPreferencesCopyAppValue(CFSTR("dur"), CFSTR(settingsPath)) ? 1.0 : [(id)CFBridgingRelease(CFPreferencesCopyAppValue(CFSTR("dur"), CFSTR(settingsPath))) floatValue];
+static void iMoLoadPreferences() {
+    CFPreferencesAppSynchronize(CFSTR(SETTINGSFILENEW));
+    enabled = !CFPreferencesCopyAppValue(CFSTR("enabled"), CFSTR(SETTINGSFILENEW)) ? YES : [(id)CFBridgingRelease(CFPreferencesCopyAppValue(CFSTR("enabled"), CFSTR(SETTINGSFILENEW))) boolValue];
+    dur = !CFPreferencesCopyAppValue(CFSTR("dur"), CFSTR(SETTINGSFILENEW)) ? 1.0 : [(id)CFBridgingRelease(CFPreferencesCopyAppValue(CFSTR("dur"), CFSTR(SETTINGSFILENEW))) floatValue];
 }
 
 %hook CASpringAnimation
@@ -63,9 +59,9 @@ static void loadPrefs() {
 %ctor {
 	CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(),
                                     NULL,
-                                    (CFNotificationCallback)loadPrefs,
-                                    CFSTR(postNotif),
+                                    (CFNotificationCallback)iMoLoadPreferences,
+                                    CFSTR(PREFERENCES_CHANGED_NOTIFICATION),
                                     NULL,
                                     CFNotificationSuspensionBehaviorCoalesce);
-	loadPrefs();
+	iMoLoadPreferences();
 }

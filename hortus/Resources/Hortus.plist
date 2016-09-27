@@ -123,30 +123,16 @@
 			</array>
 			<key>validValues</key>
 			<array>
-				<string>1</string>
-				<string>0.5</string>
-				<string>0.33</string>
-				<string>0.25</string>
-				<string>0.2</string>
-				<string>0.16</string>
-				<string>0.142</string>
-				<string>0.125</string>
-				<string>0.11</string>
+				<real>1</real>
+				<real>0.5</real>
+				<real>0.33</real>
+				<real>0.25</real>
+				<real>0.2</real>
+				<real>0.16</real>
+				<real>0.142</real>
+				<real>0.125</real>
+				<real>0.11</real>
 			</array>
-		</dict>
-		<dict>
-			<key>cell</key>
-			<string>PSGroupCell</string>
-			<key>label</key>
-			<string></string>
-		</dict>
-		<dict>
-			<key>action</key>
-			<string>respring</string>
-			<key>cell</key>
-			<string>PSButtonCell</string>
-			<key>label</key>
-			<string>Apply Changes (Respring)</string>
 		</dict>
 		<dict>
 			<key>cell</key>
