@@ -32,6 +32,20 @@
 		</dict>
 		<dict>
 			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>com.shade.hortus</string>
+			<key>PostNotification</key>
+			<string>com.shade.hortus/settingschanged</string>
+			<key>key</key>
+			<string>senabled</string>
+			<key>label</key>
+			<string>Spring Enabled</string>
+		</dict>
+		<dict>
+			<key>cell</key>
 			<string>PSEditTextCell</string>
 			<key>default</key>
 			<string>300</string>

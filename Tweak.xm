@@ -1,4 +1,5 @@
 static BOOL enabled;
+static BOOL senabled;
 static float stiff;
 static float damp;
 static float mass;
@@ -10,6 +11,7 @@ static float dur;
 static void loadPrefs() {
     CFPreferencesAppSynchronize(CFSTR(settingsPath));
     enabled = !CFPreferencesCopyAppValue(CFSTR("enabled"), CFSTR(settingsPath)) ? YES : [(id)CFBridgingRelease(CFPreferencesCopyAppValue(CFSTR("enabled"), CFSTR(settingsPath))) boolValue];
+		senabled = !CFPreferencesCopyAppValue(CFSTR("senabled"), CFSTR(settingsPath)) ? YES : [(id)CFBridgingRelease(CFPreferencesCopyAppValue(CFSTR("senabled"), CFSTR(settingsPath))) boolValue];
 		stiff = !CFPreferencesCopyAppValue(CFSTR("stiff"), CFSTR(settingsPath)) ? 300 : [(id)CFBridgingRelease(CFPreferencesCopyAppValue(CFSTR("stiff"), CFSTR(settingsPath))) floatValue];
 		damp = !CFPreferencesCopyAppValue(CFSTR("damp"), CFSTR(settingsPath)) ? 30 : [(id)CFBridgingRelease(CFPreferencesCopyAppValue(CFSTR("damp"), CFSTR(settingsPath))) floatValue];
 		mass = !CFPreferencesCopyAppValue(CFSTR("mass"), CFSTR(settingsPath)) ? 1 : [(id)CFBridgingRelease(CFPreferencesCopyAppValue(CFSTR("mass"), CFSTR(settingsPath))) floatValue];
@@ -21,28 +23,44 @@ static void loadPrefs() {
 
 -(void)setStiffness:(double)arg1 {
 	if(enabled){
-		arg1 = stiff;
+		if(senabled){
+			arg1 = stiff;
+		}else{
+			%orig(arg1);
+		}
 	}
 	%orig(arg1);
 }
 
 -(void)setDamping:(double)arg1 {
 	if(enabled){
-		arg1 = damp;
+		if(senabled){
+			arg1 = damp;
+		}else{
+			%orig(arg1);
+		}
 	}
 	%orig(arg1);
 }
 
 -(void)setMass:(double)arg1 {
 	if(enabled){
-		arg1 = mass;
+		if(senabled){
+			arg1 = mass;
+		}else{
+			%orig(arg1);
+		}
 	}
 	%orig(arg1);
 }
 
 -(void)setVelocity:(double)arg1 {
 	if(enabled){
-		arg1 = velo;
+		if(senabled){
+			arg1 = velo;
+		}else{
+			%orig(arg1);
+		}
 	}
 	%orig(arg1);
 }
