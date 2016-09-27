@@ -1,27 +1,21 @@
 static BOOL enabled;
+static float kStiff;
+static float kDamp;
+static float kMass;
+static float kVelo;
+static float kDur;
 #define SETTINGSFILENEW "com.shade.hortus"
 #define PREFERENCES_CHANGED_NOTIFICATION "com.shade.hortus/settingschanged"
 
 static void iMoLoadPreferences() {
     CFPreferencesAppSynchronize(CFSTR(SETTINGSFILENEW));
     enabled = !CFPreferencesCopyAppValue(CFSTR("enabled"), CFSTR(SETTINGSFILENEW)) ? YES : [(id)CFBridgingRelease(CFPreferencesCopyAppValue(CFSTR("enabled"), CFSTR(SETTINGSFILENEW))) boolValue];
+		kStiff = !CFPreferencesCopyAppValue(CFSTR("stiff"), CFSTR(SETTINGSFILENEW)) ? YES : [(id)CFBridgingRelease(CFPreferencesCopyAppValue(CFSTR("stiff"), CFSTR(SETTINGSFILENEW))) floatValue];
+		kDamp = !CFPreferencesCopyAppValue(CFSTR("damp"), CFSTR(SETTINGSFILENEW)) ? YES : [(id)CFBridgingRelease(CFPreferencesCopyAppValue(CFSTR("damp"), CFSTR(SETTINGSFILENEW))) floatValue];
+		kMass = !CFPreferencesCopyAppValue(CFSTR("mass"), CFSTR(SETTINGSFILENEW)) ? YES : [(id)CFBridgingRelease(CFPreferencesCopyAppValue(CFSTR("mass"), CFSTR(SETTINGSFILENEW))) floatValue];
+		kVelo = !CFPreferencesCopyAppValue(CFSTR("velo"), CFSTR(SETTINGSFILENEW)) ? YES : [(id)CFBridgingRelease(CFPreferencesCopyAppValue(CFSTR("velo"), CFSTR(SETTINGSFILENEW))) floatValue];
+		kDur = !CFPreferencesCopyAppValue(CFSTR("dur"), CFSTR(SETTINGSFILENEW)) ? YES : [(id)CFBridgingRelease(CFPreferencesCopyAppValue(CFSTR("dur"), CFSTR(SETTINGSFILENEW))) floatValue];
 }
-
-static float kStiff = 300;
-static float kDamp = 30;
-static float kMass = 1;
-static float kVelo = 20;
-static float kDur = 1;
-
-%hook SBLockScreenViewController
-- (void)finishUIUnlockFromSource:(int)arg1 {
-  %orig();
-  if (enabled) {
-      UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Unlock" message:@"your device unlock finished ;)" delegate:nil cancelButtonTitle:@"OK :)" otherButtonTitles:nil, nil];
-      [alertView show];
-  }
-}
-%end
 
 %hook CASpringAnimation
 

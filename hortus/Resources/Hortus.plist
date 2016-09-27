@@ -32,20 +32,6 @@
 		</dict>
 		<dict>
 			<key>cell</key>
-			<string>PSSwitchCell</string>
-			<key>default</key>
-			<false/>
-			<key>defaults</key>
-			<string>com.shade.hortus</string>
-			<key>PostNotification</key>
-			<string>com.shade.hortus/settingschanged</string>
-			<key>key</key>
-			<string>isSpringEnabled</string>
-			<key>label</key>
-			<string>Spring Enabled</string>
-		</dict>
-		<dict>
-			<key>cell</key>
 			<string>PSEditTextCell</string>
 			<key>default</key>
 			<string>300</string>
@@ -56,7 +42,7 @@
 			<key>isNumeric</key>
 			<true/>
 			<key>key</key>
-			<string>stiffness</string>
+			<string>stiff</string>
 			<key>label</key>
 			<string>Stiffness</string>
 		</dict>
@@ -72,7 +58,7 @@
 			<key>isNumeric</key>
 			<true/>
 			<key>key</key>
-			<string>damping</string>
+			<string>damp</string>
 			<key>label</key>
 			<string>Damping</string>
 		</dict>
@@ -104,7 +90,7 @@
 			<key>isNumeric</key>
 			<true/>
 			<key>key</key>
-			<string>velocity</string>
+			<string>velo</string>
 			<key>label</key>
 			<string>Velocity</string>
 		</dict>
@@ -120,7 +106,7 @@
 			<key>detail</key>
 			<string>PSListItemsController</string>
 			<key>key</key>
-			<string>duration</string>
+			<string>dur</string>
 			<key>label</key>
 			<string>Animation Speed</string>
 			<key>validTitles</key>
