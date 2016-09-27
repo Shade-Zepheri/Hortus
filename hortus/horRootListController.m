@@ -31,18 +31,4 @@
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"mailto:ziroalpha@gmail.com?subject=Hortus"]];
 }
 
-- (void)previewAndSet:(id)value forSpecifier:(id)specifier{
-    [super setPreferenceValue:value specifier:specifier];
-}
-
-// List our directory content
-- (NSArray *)getValues:(id)target{
-		NSMutableArray *listing = [NSMutableArray arrayWithObjects:@"None",nil];
-  NSPredicate *predicate = [NSPredicate predicateWithFormat:@"pathExtension != ''"];
-  for (NSURL *fileURL in [directoryContent filteredArrayUsingPredicate:predicate]) {
-		[listing addObject:fileURL];
-  }
-  return listing;
-}
-
 @end

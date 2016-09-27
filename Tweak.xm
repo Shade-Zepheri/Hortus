@@ -1,41 +1,54 @@
-static BOOL kEnabled = YES;
-static BOOL kSenabled = YES;
-static BOOL kAppExe = NO;
+static BOOL enabled;
+#define SETTINGSFILENEW "com.shade.hortus"
+#define PREFERENCES_CHANGED_NOTIFICATION "com.shade.hortus/settingschanged"
+
+static void iMoLoadPreferences() {
+    CFPreferencesAppSynchronize(CFSTR(SETTINGSFILENEW));
+    enabled = !CFPreferencesCopyAppValue(CFSTR("enabled"), CFSTR(SETTINGSFILENEW)) ? YES : [(id)CFBridgingRelease(CFPreferencesCopyAppValue(CFSTR("enabled"), CFSTR(SETTINGSFILENEW))) boolValue];
+}
+
 static float kStiff = 300;
 static float kDamp = 30;
 static float kMass = 1;
 static float kVelo = 20;
 static float kDur = 1;
 
+%hook SBLockScreenViewController
+- (void)finishUIUnlockFromSource:(int)arg1 {
+  %orig();
+  if (enabled) {
+      UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Unlock" message:@"your device unlock finished ;)" delegate:nil cancelButtonTitle:@"OK :)" otherButtonTitles:nil, nil];
+      [alertView show];
+  }
+}
+%end
+
 %hook CASpringAnimation
 
-NSMutableDictionary *prefs = [[NSMutableDictionary alloc] initWithContentsOfFile:@"/private/var/mobile/Library/Preferences/com.shade.hortus.plist"];
-BOOL enabled = [[prefs objectForKey:@"enabled"] boolValue]
-
 -(void)setStiffness:(double)arg1 {
-	if(kEnabled){
+	if(enabled){
 		arg1 = kStiff;
 	}
 	%orig(arg1);
 }
 
 -(void)setDamping:(double)arg1 {
-	if(kEnabled){
-		arg1 = kStiff;
+	if(enabled){
+		arg1 = kDamp;
 	}
 	%orig(arg1);
 }
 
 -(void)setMass:(double)arg1 {
-	if(kEnabled){
-		arg1 = kStiff;
+	if(enabled){
+		arg1 = kMass;
 	}
 	%orig(arg1);
 }
 
 -(void)setVelocity:(double)arg1 {
-	if(kEnabled){
-		arg1 = kStiff;
+	if(enabled){
+		arg1 = kVelo;
 	}
 	%orig(arg1);
 }
@@ -45,7 +58,7 @@ BOOL enabled = [[prefs objectForKey:@"enabled"] boolValue]
 %hook CAAnimation
 
 - (void)setDuration:(NSTimeInterval)duration {
-	if(kEnabled){
+	if(enabled){
 		duration = duration * kDur;
 	}
 	%orig(duration);
@@ -53,27 +66,12 @@ BOOL enabled = [[prefs objectForKey:@"enabled"] boolValue]
 
 %end
 
-static void loadPrefs() {
-
-       NSMutableDictionary *prefs = [[NSMutableDictionary alloc] initWithContentsOfFile:@"/private/var/mobile/Library/Preferences/com.shade.hortus.plist"];
-    if(prefs)
-    {
-			kSenabled = ([prefs objectForKey:@"isSpringEnabled"] ? [[prefs objectForKey:@"isSpringEnabled"] boolValue] : kSenabled);
-			kStiff = ([prefs objectForKey:@"stiffness"] ? [[prefs objectForKey:@"stiffness"] floatValue] : kStiff);
-			kDamp = ([prefs objectForKey:@"damping"] ? [[prefs objectForKey:@"damping"] floatValue] : kDamp);
-			kMass = ([prefs objectForKey:@"mass"] ? [[prefs objectForKey:@"mass"] floatValue] : kMass);
-			kVelo = ([prefs objectForKey:@"velocity"] ? [[prefs objectForKey:@"velocity"] floatValue] : kVelo);
-			kDur = ([prefs objectForKey:@"duration"] ? [[prefs objectForKey:@"duration"] floatValue] : kDur);
-    }
-    [prefs release];
-}
-
-static void settingschanged(CFNotificationCenterRef center, void *observer, CFStringRef name, const void *object, CFDictionaryRef userInfo){
-    loadPrefs();
-}
-
-%ctor{
-
-    CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, settingschanged, CFSTR("com.shade.hortus/settingschanged"), NULL, CFNotificationSuspensionBehaviorCoalesce);
-    loadPrefs();
+%ctor {
+	CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(),
+                                    NULL,
+                                    (CFNotificationCallback)iMoLoadPreferences,
+                                    CFSTR(PREFERENCES_CHANGED_NOTIFICATION),
+                                    NULL,
+                                    CFNotificationSuspensionBehaviorCoalesce);
+	iMoLoadPreferences();
 }
