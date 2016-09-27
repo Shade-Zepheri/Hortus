@@ -1,48 +1,48 @@
 static BOOL enabled;
-static float kStiff;
-static float kDamp;
-static float kMass;
-static float kVelo;
-static float kDur;
-#define SETTINGSFILENEW "com.shade.hortus"
-#define PREFERENCES_CHANGED_NOTIFICATION "com.shade.hortus/settingschanged"
+static float stiff;
+static float damp;
+static float mass;
+static float velo;
+static float dur;
+#define settingsPath "com.shade.hortus"
+#define postNotif "com.shade.hortus/settingschanged"
 
-static void iMoLoadPreferences() {
-    CFPreferencesAppSynchronize(CFSTR(SETTINGSFILENEW));
-    enabled = !CFPreferencesCopyAppValue(CFSTR("enabled"), CFSTR(SETTINGSFILENEW)) ? YES : [(id)CFBridgingRelease(CFPreferencesCopyAppValue(CFSTR("enabled"), CFSTR(SETTINGSFILENEW))) boolValue];
-		kStiff = !CFPreferencesCopyAppValue(CFSTR("stiff"), CFSTR(SETTINGSFILENEW)) ? YES : [(id)CFBridgingRelease(CFPreferencesCopyAppValue(CFSTR("stiff"), CFSTR(SETTINGSFILENEW))) floatValue];
-		kDamp = !CFPreferencesCopyAppValue(CFSTR("damp"), CFSTR(SETTINGSFILENEW)) ? YES : [(id)CFBridgingRelease(CFPreferencesCopyAppValue(CFSTR("damp"), CFSTR(SETTINGSFILENEW))) floatValue];
-		kMass = !CFPreferencesCopyAppValue(CFSTR("mass"), CFSTR(SETTINGSFILENEW)) ? YES : [(id)CFBridgingRelease(CFPreferencesCopyAppValue(CFSTR("mass"), CFSTR(SETTINGSFILENEW))) floatValue];
-		kVelo = !CFPreferencesCopyAppValue(CFSTR("velo"), CFSTR(SETTINGSFILENEW)) ? YES : [(id)CFBridgingRelease(CFPreferencesCopyAppValue(CFSTR("velo"), CFSTR(SETTINGSFILENEW))) floatValue];
-		kDur = !CFPreferencesCopyAppValue(CFSTR("dur"), CFSTR(SETTINGSFILENEW)) ? YES : [(id)CFBridgingRelease(CFPreferencesCopyAppValue(CFSTR("dur"), CFSTR(SETTINGSFILENEW))) floatValue];
+static void loadPrefs() {
+    CFPreferencesAppSynchronize(CFSTR(settingsPath));
+    enabled = !CFPreferencesCopyAppValue(CFSTR("enabled"), CFSTR(settingsPath)) ? YES : [(id)CFBridgingRelease(CFPreferencesCopyAppValue(CFSTR("enabled"), CFSTR(settingsPath))) boolValue];
+		stiff = !CFPreferencesCopyAppValue(CFSTR("stiff"), CFSTR(settingsPath)) ? 300 : [(id)CFBridgingRelease(CFPreferencesCopyAppValue(CFSTR("stiff"), CFSTR(settingsPath))) floatValue];
+		damp = !CFPreferencesCopyAppValue(CFSTR("damp"), CFSTR(settingsPath)) ? 30 : [(id)CFBridgingRelease(CFPreferencesCopyAppValue(CFSTR("damp"), CFSTR(settingsPath))) floatValue];
+		mass = !CFPreferencesCopyAppValue(CFSTR("mass"), CFSTR(settingsPath)) ? 1 : [(id)CFBridgingRelease(CFPreferencesCopyAppValue(CFSTR("mass"), CFSTR(settingsPath))) floatValue];
+		velo = !CFPreferencesCopyAppValue(CFSTR("velo"), CFSTR(settingsPath)) ? 20 : [(id)CFBridgingRelease(CFPreferencesCopyAppValue(CFSTR("velo"), CFSTR(settingsPath))) floatValue];
+		dur = !CFPreferencesCopyAppValue(CFSTR("dur"), CFSTR(settingsPath)) ? 1.0 : [(id)CFBridgingRelease(CFPreferencesCopyAppValue(CFSTR("dur"), CFSTR(settingsPath))) floatValue];
 }
 
 %hook CASpringAnimation
 
 -(void)setStiffness:(double)arg1 {
 	if(enabled){
-		arg1 = kStiff;
+		arg1 = stiff;
 	}
 	%orig(arg1);
 }
 
 -(void)setDamping:(double)arg1 {
 	if(enabled){
-		arg1 = kDamp;
+		arg1 = damp;
 	}
 	%orig(arg1);
 }
 
 -(void)setMass:(double)arg1 {
 	if(enabled){
-		arg1 = kMass;
+		arg1 = mass;
 	}
 	%orig(arg1);
 }
 
 -(void)setVelocity:(double)arg1 {
 	if(enabled){
-		arg1 = kVelo;
+		arg1 = velo;
 	}
 	%orig(arg1);
 }
@@ -53,7 +53,7 @@ static void iMoLoadPreferences() {
 
 - (void)setDuration:(NSTimeInterval)duration {
 	if(enabled){
-		duration = duration * kDur;
+		duration = duration * dur;
 	}
 	%orig(duration);
 }
@@ -63,9 +63,9 @@ static void iMoLoadPreferences() {
 %ctor {
 	CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(),
                                     NULL,
-                                    (CFNotificationCallback)iMoLoadPreferences,
-                                    CFSTR(PREFERENCES_CHANGED_NOTIFICATION),
+                                    (CFNotificationCallback)loadPrefs,
+                                    CFSTR(postNotif),
                                     NULL,
                                     CFNotificationSuspensionBehaviorCoalesce);
-	iMoLoadPreferences();
+	loadPrefs();
 }
