@@ -6,6 +6,7 @@ include theos/makefiles/common.mk
 
 TWEAK_NAME = Hortus
 Hortus_FILES = Tweak.xm
+Tweak.xm_CFLAGS = -fobjc-arc
 
 include $(THEOS_MAKE_PATH)/tweak.mk
 

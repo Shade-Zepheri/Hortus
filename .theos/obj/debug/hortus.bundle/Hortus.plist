@@ -106,7 +106,7 @@
 			<key>detail</key>
 			<string>PSListItemsController</string>
 			<key>key</key>
-			<string>dur</string>
+			<string>duration</string>
 			<key>label</key>
 			<string>Animation Speed</string>
 			<key>validTitles</key>

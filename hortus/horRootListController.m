@@ -10,6 +10,10 @@
 	return _specifiers;
 }
 
+- (void)respring {
+	system("killall -9 SpringBoard");
+}
+
 - (void)twitter {
     if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"tweetbot:"]])
 	[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"tweetbot:///user_profile/ShadeZepheri"]];

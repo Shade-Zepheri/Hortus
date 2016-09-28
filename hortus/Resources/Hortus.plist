@@ -106,7 +106,7 @@
 			<key>detail</key>
 			<string>PSListItemsController</string>
 			<key>key</key>
-			<string>dur</string>
+			<string>duration</string>
 			<key>label</key>
 			<string>Animation Speed</string>
 			<key>validTitles</key>
@@ -133,6 +133,20 @@
 				<real>0.125</real>
 				<real>0.11</real>
 			</array>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>label</key>
+			<string></string>
+		</dict>
+		<dict>
+			<key>action</key>
+			<string>respring</string>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>label</key>
+			<string>Apply Changes (Respring)</string>
 		</dict>
 		<dict>
 			<key>cell</key>
