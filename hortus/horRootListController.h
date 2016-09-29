@@ -1,5 +1,5 @@
 #import <Preferences/PSListController.h>
 
-@interface horRootListController : PSListController
+@interface horRootListController : PSListController 
 
 @end
