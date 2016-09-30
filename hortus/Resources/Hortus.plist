@@ -7,8 +7,6 @@
 		<dict>
 			<key>cell</key>
 			<string>PSGroupCell</string>
-			<key>label</key>
-			<string></string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -27,8 +25,6 @@
 		<dict>
 			<key>cell</key>
 			<string>PSGroupCell</string>
-			<key>label</key>
-			<string></string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -149,6 +145,24 @@
 			</array>
 		</dict>
 		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>com.shade.hortus</string>
+			<key>PostNotification</key>
+			<string>com.shade.hortus/settingschanged</string>
+			<key>key</key>
+			<string>sexempt</string>
+			<key>label</key>
+			<string>Only in SpringBoard</string>
+		</dict>
+		<dict>
 			<key>bundle</key>
 			<string>AppList</string>
 			<key>cell</key>
@@ -198,8 +212,6 @@
 		<dict>
 			<key>cell</key>
 			<string>PSGroupCell</string>
-			<key>label</key>
-			<string></string>
 		</dict>
 		<dict>
 			<key>action</key>
@@ -212,8 +224,6 @@
 		<dict>
 			<key>cell</key>
 			<string>PSGroupCell</string>
-			<key>label</key>
-			<string></string>
 		</dict>
 		<dict>
 			<key>action</key>

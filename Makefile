@@ -1,5 +1,6 @@
-export THEOS_DEVICE_IP=192.168.254.2
+export THEOS_DEVICE_IP=192.168.254.7
 
+TARGET_SDK_VERSION := 9.3
 ARCHS = armv7 arm64
 
 include theos/makefiles/common.mk

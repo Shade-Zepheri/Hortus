@@ -1,6 +1,7 @@
 static BOOL kEnabled = YES;
 static BOOL sEnabled = YES;
 static BOOL appExempt = NO;
+static BOOL sExempt = NO;
 static float kStiff = 300;
 static float kDamp = 30;
 static float kMass = 1;
@@ -83,12 +84,19 @@ static void loadPrefs() {
 
       kEnabled = ([prefs objectForKey:@"enabled"] ? [[prefs objectForKey:@"enabled"] boolValue] : kEnabled);
       sEnabled = ([prefs objectForKey:@"senabled"] ? [[prefs objectForKey:@"senabled"] boolValue] : sEnabled);
+			sExempt = ([prefs objectForKey:@"sexempt"] ? [[prefs objectForKey:@"sexempt"] boolValue] : sExempt);
 			kStiff = ([prefs objectForKey:@"stiff"] ? [[prefs objectForKey:@"stiff"] floatValue] : kStiff);
 			kDamp = ([prefs objectForKey:@"damp"] ? [[prefs objectForKey:@"damp"] floatValue] : kDamp);
 			kMass = ([prefs objectForKey:@"mass"] ? [[prefs objectForKey:@"mass"] floatValue] : kMass);
 			kVelo = ([prefs objectForKey:@"velo"] ? [[prefs objectForKey:@"velo"] floatValue] : kVelo);
 			kDur = ([prefs objectForKey:@"duration"] ? [[prefs objectForKey:@"duration"] floatValue] : kDur);
-    }
+
+			if(sExempt){
+				appExempt = YES;
+			}else{
+				appExempt = NO;
+			}
+		}
     [prefs release];
 }
 
