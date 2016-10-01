@@ -2,11 +2,11 @@ static BOOL kEnabled = YES;
 static BOOL sEnabled = YES;
 static BOOL appExempt = NO;
 static BOOL sExempt = NO;
-static float kStiff = 300;
-static float kDamp = 30;
-static float kMass = 1;
-static float kVelo = 20;
-static float kDur = 1;
+static double kStiff = 300;
+static double kDamp = 30;
+static double kMass = 1;
+static double kVelo = 20;
+static double kDur = 1;
 
 %hook CASpringAnimation
 
@@ -85,11 +85,11 @@ static void loadPrefs() {
       kEnabled = ([prefs objectForKey:@"enabled"] ? [[prefs objectForKey:@"enabled"] boolValue] : kEnabled);
       sEnabled = ([prefs objectForKey:@"senabled"] ? [[prefs objectForKey:@"senabled"] boolValue] : sEnabled);
 			sExempt = ([prefs objectForKey:@"sexempt"] ? [[prefs objectForKey:@"sexempt"] boolValue] : sExempt);
-			kStiff = ([prefs objectForKey:@"stiff"] ? [[prefs objectForKey:@"stiff"] floatValue] : kStiff);
-			kDamp = ([prefs objectForKey:@"damp"] ? [[prefs objectForKey:@"damp"] floatValue] : kDamp);
-			kMass = ([prefs objectForKey:@"mass"] ? [[prefs objectForKey:@"mass"] floatValue] : kMass);
-			kVelo = ([prefs objectForKey:@"velo"] ? [[prefs objectForKey:@"velo"] floatValue] : kVelo);
-			kDur = ([prefs objectForKey:@"duration"] ? [[prefs objectForKey:@"duration"] floatValue] : kDur);
+			kStiff = ([prefs objectForKey:@"stiff"] ? [[prefs objectForKey:@"stiff"] doubleValue] : kStiff);
+			kDamp = ([prefs objectForKey:@"damp"] ? [[prefs objectForKey:@"damp"] doubleValue] : kDamp);
+			kMass = ([prefs objectForKey:@"mass"] ? [[prefs objectForKey:@"mass"] doubleValue] : kMass);
+			kVelo = ([prefs objectForKey:@"velo"] ? [[prefs objectForKey:@"velo"] doubleValue] : kVelo);
+			kDur = ([prefs objectForKey:@"duration"] ? [[prefs objectForKey:@"duration"] doubleValue] : kDur);
 
 			if(sExempt){
 				appExempt = YES;
