@@ -1,6 +1,6 @@
-export THEOS_DEVICE_IP=192.168.254.7
+export THEOS_DEVICE_IP=192.168.254.10
 
-TARGET_SDK_VERSION := 9.3
+TARGET = iphone:clang:9.3
 ARCHS = armv7 arm64
 
 include theos/makefiles/common.mk
