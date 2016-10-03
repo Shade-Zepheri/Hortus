@@ -1,11 +1,20 @@
-static BOOL kEnabled = YES;
-static BOOL sEnabled = YES;
-static BOOL appExempt = NO;
-static float kStiff = 300;
-static float kDamp = 30;
-static float kMass = 1;
-static float kVelo = 20;
-static float kDur = 1;
+#import "Hortus.h"
+#import <Cephei/HBPreferences.h>
+
+HBPreferences *preferences;
+static BOOL kEnabled;
+static BOOL sEnabled;
+static BOOL appExempt;
+static BOOL sExempt;
+static double kStiff;
+static double kDamp;
+static double kMass;
+static double kVelo;
+static double kDur;
+
+static void respring(CFNotificationCenterRef center, void *observer, CFStringRef name, const void *object, CFDictionaryRef userInfo) {
+  [[%c(FBSystemService) sharedInstance] exitAndRelaunch:YES];
+}
 
 %hook CASpringAnimation
 
@@ -66,38 +75,32 @@ static float kDur = 1;
 
 %end
 
-static void loadPrefs() {
+%ctor {
+    preferences = [[HBPreferences alloc] initWithIdentifier:@"com.shade.ctest"];
+    [preferences registerDefaults:@{
+        @"enabled": @NO,
+        @"senabled": @NO,
+        @"sexempt": @NO,
+        @"stiff": @300,
+        @"damp": @30,
+        @"mass": @1,
+        @"velo": @20,
+        @"duration": @1,
+    }];
 
-       NSMutableDictionary *prefs = [[NSMutableDictionary alloc] initWithContentsOfFile:@"/private/var/mobile/Library/Preferences/com.shade.hortus.plist"];
-       NSString *bundleID = [[NSBundle mainBundle] bundleIdentifier];
-       NSString *settingsKeyPrefix = @"Exempt-";
-    if(prefs)
-    {
-      if ([[prefs allKeys] containsObject:[NSString stringWithFormat:@"%@%@", settingsKeyPrefix, bundleID]]) {
-        if ([[prefs objectForKey:[NSString stringWithFormat:@"%@%@", settingsKeyPrefix, bundleID]] boolValue]) {
-          appExempt =  YES;
-        } else {
-          appExempt =  NO;
-        }
-      }
+    [preferences registerBool:&kEnabled default:NO forKey:@"enabled"];
+    [preferences registerBool:&sEnabled default:NO forKey:@"senabled"];
+    [preferences registerBool:&sExempt default:NO forKey:@"sexempt"];
+    [preferences registerDouble:&kStiff default:20 forKey:@"stiff"];
+    [preferences registerDouble:&kDamp default:20 forKey:@"damp"];
+    [preferences registerDouble:&kMass default:20 forKey:@"mass"];
+    [preferences registerDouble:&kVelo default:20 forKey:@"velo"];
+    [preferences registerDouble:&kDur default:20 forKey:@"duration"];
 
-      kEnabled = ([prefs objectForKey:@"enabled"] ? [[prefs objectForKey:@"enabled"] boolValue] : kEnabled);
-      sEnabled = ([prefs objectForKey:@"senabled"] ? [[prefs objectForKey:@"senabled"] boolValue] : sEnabled);
-			kStiff = ([prefs objectForKey:@"stiff"] ? [[prefs objectForKey:@"stiff"] floatValue] : kStiff);
-			kDamp = ([prefs objectForKey:@"damp"] ? [[prefs objectForKey:@"damp"] floatValue] : kDamp);
-			kMass = ([prefs objectForKey:@"mass"] ? [[prefs objectForKey:@"mass"] floatValue] : kMass);
-			kVelo = ([prefs objectForKey:@"velo"] ? [[prefs objectForKey:@"velo"] floatValue] : kVelo);
-			kDur = ([prefs objectForKey:@"duration"] ? [[prefs objectForKey:@"duration"] floatValue] : kDur);
-    }
-    [prefs release];
-}
-
-static void settingschanged(CFNotificationCenterRef center, void *observer, CFStringRef name, const void *object, CFDictionaryRef userInfo){
-    loadPrefs();
-}
-
-%ctor{
-
-    CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, settingschanged, CFSTR("com.shade.hortus/settingschanged"), NULL, CFNotificationSuspensionBehaviorCoalesce);
-    loadPrefs();
+    CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(),
+                                        NULL,
+                                        &respring,
+                                        CFSTR("RESPRING"),
+                                        NULL,
+                                        0);
 }

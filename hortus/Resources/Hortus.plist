@@ -7,8 +7,12 @@
 		<dict>
 			<key>cell</key>
 			<string>PSGroupCell</string>
-			<key>label</key>
-			<string></string>
+			<key>headerCellClass</key>
+			<string>HBPackageNameHeaderCell</string>
+			<key>packageIdentifier</key>
+			<string>com.shade.hortus</string>
+			<key>showVersion</key>
+			<false/>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -18,7 +22,7 @@
 			<key>defaults</key>
 			<string>com.shade.hortus</string>
 			<key>PostNotification</key>
-			<string>com.shade.hortus/settingschanged</string>
+			<string>com.shade.hortus/ReloadPrefs</string>
 			<key>key</key>
 			<string>enabled</string>
 			<key>label</key>
@@ -27,8 +31,6 @@
 		<dict>
 			<key>cell</key>
 			<string>PSGroupCell</string>
-			<key>label</key>
-			<string></string>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -38,7 +40,7 @@
 			<key>defaults</key>
 			<string>com.shade.hortus</string>
 			<key>PostNotification</key>
-			<string>com.shade.hortus/settingschanged</string>
+			<string>com.shade.hortus/ReloadPrefs</string>
 			<key>key</key>
 			<string>senabled</string>
 			<key>label</key>
@@ -52,7 +54,7 @@
 			<key>defaults</key>
 			<string>com.shade.hortus</string>
 			<key>PostNotification</key>
-			<string>com.shade.hortus/settingschanged</string>
+			<string>com.shade.hortus/ReloadPrefs</string>
 			<key>isNumeric</key>
 			<true/>
 			<key>key</key>
@@ -68,7 +70,7 @@
 			<key>defaults</key>
 			<string>com.shade.hortus</string>
 			<key>PostNotification</key>
-			<string>com.shade.hortus/settingschanged</string>
+			<string>com.shade.hortus/ReloadPrefs</string>
 			<key>isNumeric</key>
 			<true/>
 			<key>key</key>
@@ -84,7 +86,7 @@
 			<key>defaults</key>
 			<string>com.shade.hortus</string>
 			<key>PostNotification</key>
-			<string>com.shade.hortus/settingschanged</string>
+			<string>com.shade.hortus/ReloadPrefs</string>
 			<key>isNumeric</key>
 			<true/>
 			<key>key</key>
@@ -100,7 +102,7 @@
 			<key>defaults</key>
 			<string>com.shade.hortus</string>
 			<key>PostNotification</key>
-			<string>com.shade.hortus/settingschanged</string>
+			<string>com.shade.hortus/ReloadPrefs</string>
 			<key>isNumeric</key>
 			<true/>
 			<key>key</key>
@@ -116,7 +118,7 @@
 			<key>defaults</key>
 			<string>com.shade.hortus</string>
 			<key>PostNotification</key>
-			<string>com.shade.hortus/settingschanged</string>
+			<string>com.shade.hortus/ReloadPrefs</string>
 			<key>detail</key>
 			<string>PSListItemsController</string>
 			<key>key</key>
@@ -162,9 +164,9 @@
 			<key>ALSettingsKeyPrefix</key>
 			<string>Exempt-</string>
 			<key>ALChangeNotification</key>
-			<string>com.shade.hortus/settingschanged</string>
+			<string>com.shade.hortus/ReloadPrefs</string>
 			<key>PostNotification</key>
-			<string>com.shade.hortus/settingschanged</string>
+			<string>com.shade.hortus/ReloadPrefs</string>
 			<key>ALAllowsSelection</key>
 			<string>1</string>
 			<key>ALSectionDescriptors</key>
@@ -198,8 +200,6 @@
 		<dict>
 			<key>cell</key>
 			<string>PSGroupCell</string>
-			<key>label</key>
-			<string></string>
 		</dict>
 		<dict>
 			<key>action</key>
@@ -212,18 +212,14 @@
 		<dict>
 			<key>cell</key>
 			<string>PSGroupCell</string>
-			<key>label</key>
-			<string></string>
 		</dict>
 		<dict>
-			<key>action</key>
-			<string>twitter</string>
-			<key>cell</key>
-			<string>PSButtonCell</string>
-			<key>icon</key>
-			<string>twitter.png</string>
-			<key>label</key>
-			<string>Follow me on Twitter (@ShadeZepheri)</string>
+    <key>cellClass</key>
+    	<string>HBTwitterCell</string>
+    	<key>label</key>
+    	<string>Shade Zepheri</string>
+    	<key>user</key>
+    	<string>ShadeZepheri</string>
 		</dict>
 		<dict>
 			<key>action</key>
