@@ -1,7 +1,6 @@
 #import "Hortus.h"
 #import <Cephei/HBPreferences.h>
 
-HBPreferences *preferences;
 static BOOL enabled;
 static BOOL senabled;
 static BOOL appExempt = NO;
@@ -10,7 +9,7 @@ static double stiff;
 static double damp;
 static double mass = 1;
 static double velo = 20;
-static double dur = 0.3;
+static double dur;
 
 %hook CASpringAnimation
 
@@ -71,8 +70,18 @@ static double dur = 0.3;
 
 %end
 
+static void loadPrefs() {
+  enabled = [[[[NSUserDefaults standardUserDefaults] persistentDomainForName:@"com.shade.hortus"] objectForKey:@"enabled"] boolValue];
+  dur = [[[[NSUserDefaults standardUserDefaults] persistentDomainForName:@"com.shade.hortus"] objectForKey:@"duration"] doubleValue];
+
+}
+
+static void settingschanged(CFNotificationCenterRef center, void *observer, CFStringRef name, const void *object, CFDictionaryRef userInfo){
+    loadPrefs();
+}
+
 %ctor {
-    preferences = [[HBPreferences alloc] initWithIdentifier:@"com.shade.hortus"];
+  HBPreferences *preferences = [[HBPreferences alloc] initWithIdentifier:@"com.shade.hortus"];
     [preferences registerDefaults:@{
         @"enabled": @YES,
         @"senabled": @YES,
@@ -84,10 +93,11 @@ static double dur = 0.3;
         @"duration": @1,
     }];
 
-    [preferences registerBool:&enabled default:NO forKey:@"enabled"];
     [preferences registerBool:&senabled default:NO forKey:@"senabled"];
     [preferences registerBool:&sexempt default:NO forKey:@"sexempt"];
     [preferences registerDouble:&stiff default:300 forKey:@"stiff"];
     [preferences registerDouble:&damp default:30 forKey:@"damp"];
 
+    CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, settingschanged, CFSTR("com.shade.hortus/ReloadPrefs"), NULL, CFNotificationSuspensionBehaviorCoalesce);
+        loadPrefs();
 }
