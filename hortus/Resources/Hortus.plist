@@ -162,7 +162,7 @@
 			<key>ALSettingsPath</key>
 			<string>/private/var/mobile/Library/Preferences/com.shade.hortus.plist</string>
 			<key>ALSettingsKeyPrefix</key>
-			<string>Exempt-</string>
+			<string>aexempt</string>
 			<key>ALChangeNotification</key>
 			<string>com.shade.hortus/ReloadPrefs</string>
 			<key>PostNotification</key>

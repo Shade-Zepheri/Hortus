@@ -4,7 +4,7 @@
 HBPreferences *preferences;
 static BOOL kEnabled;
 static BOOL sEnabled;
-static BOOL appExempt;
+static BOOL appExempt = NO;
 static BOOL sExempt;
 static double kStiff;
 static double kDamp;
@@ -74,10 +74,9 @@ static double kDur;
 %ctor {
     preferences = [[HBPreferences alloc] initWithIdentifier:@"com.shade.hortus"];
     [preferences registerDefaults:@{
-        @"enabled": @NO,
-        @"senabled": @NO,
+        @"enabled": @YES,
+        @"senabled": @YES,
         @"sexempt": @NO,
-        @"Exempt-": @NO,
         @"stiff": @300,
         @"damp": @30,
         @"mass": @1,
@@ -88,7 +87,6 @@ static double kDur;
     [preferences registerBool:&kEnabled default:NO forKey:@"enabled"];
     [preferences registerBool:&sEnabled default:NO forKey:@"senabled"];
     [preferences registerBool:&sExempt default:NO forKey:@"sexempt"];
-    [preferences registerBool:&appExempt default:NO forKey:@"Exempt-"];
     [preferences registerDouble:&kStiff default:20 forKey:@"stiff"];
     [preferences registerDouble:&kDamp default:20 forKey:@"damp"];
     [preferences registerDouble:&kMass default:20 forKey:@"mass"];
