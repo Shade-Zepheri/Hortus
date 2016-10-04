@@ -2,23 +2,23 @@
 #import <Cephei/HBPreferences.h>
 
 HBPreferences *preferences;
-static BOOL kEnabled;
-static BOOL sEnabled;
+static BOOL enabled;
+static BOOL senabled;
 static BOOL appExempt = NO;
-static BOOL sExempt;
-static double kStiff;
-static double kDamp;
-static double kMass;
-static double kVelo;
-static double kDur;
+static BOOL sexempt;
+static double stiff;
+static double damp;
+static double mass;
+static double velo;
+static double dur;
 
 %hook CASpringAnimation
 
 -(void)setStiffness:(double)arg1 {
   if(appExempt){
     %orig;
-  }else if(kEnabled && sEnabled){
-    arg1 = kStiff;
+  }else if(enabled && senabled){
+    arg1 = stiff;
     %orig(arg1);
   }else{
     %orig;
@@ -28,8 +28,8 @@ static double kDur;
 -(void)setDamping:(double)arg1 {
   if(appExempt){
     %orig;
-  }else if(kEnabled && sEnabled){
-    arg1 = kDamp;
+  }else if(enabled && senabled){
+    arg1 = damp;
     %orig(arg1);
   }else{
     %orig(arg1);
@@ -39,8 +39,8 @@ static double kDur;
 -(void)setMass:(double)arg1 {
   if(appExempt){
     %orig;
-  }else if(kEnabled && sEnabled){
-    arg1 = kMass;
+  }else if(enabled && senabled){
+    arg1 = mass;
     %orig(arg1);
   }else{
     %orig(arg1);
@@ -50,8 +50,8 @@ static double kDur;
 -(void)setVelocity:(double)arg1 {
   if(appExempt){
     %orig;
-  }else if(kEnabled && sEnabled){
-    arg1 = kVelo;
+  }else if(enabled && senabled){
+    arg1 = velo;
     %orig(arg1);
   }else{
     %orig(arg1);
@@ -63,8 +63,8 @@ static double kDur;
 %hook CAAnimation
 
 - (void)setDuration:(NSTimeInterval)duration {
-	if(kEnabled){
-		duration = duration * kDur;
+	if(enabled){
+		duration = duration * dur;
 	}
 	%orig(duration);
 }
@@ -84,12 +84,12 @@ static double kDur;
         @"duration": @1,
     }];
 
-    [preferences registerBool:&kEnabled default:NO forKey:@"enabled"];
-    [preferences registerBool:&sEnabled default:NO forKey:@"senabled"];
-    [preferences registerBool:&sExempt default:NO forKey:@"sexempt"];
-    [preferences registerDouble:&kStiff default:20 forKey:@"stiff"];
-    [preferences registerDouble:&kDamp default:20 forKey:@"damp"];
-    [preferences registerDouble:&kMass default:20 forKey:@"mass"];
-    [preferences registerDouble:&kVelo default:20 forKey:@"velo"];
-    [preferences registerDouble:&kDur default:20 forKey:@"duration"];
+    [preferences registerBool:&enabled default:NO forKey:@"enabled"];
+    [preferences registerBool:&senabled default:NO forKey:@"senabled"];
+    [preferences registerBool:&sexempt default:NO forKey:@"sexempt"];
+    [preferences registerDouble:&stiff default:20 forKey:@"stiff"];
+    [preferences registerDouble:&damp default:20 forKey:@"damp"];
+    [preferences registerDouble:&mass default:20 forKey:@"mass"];
+    [preferences registerDouble:&velo default:20 forKey:@"velo"];
+    [preferences registerDouble:&dur default:20 forKey:@"duration"];
 }
