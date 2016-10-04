@@ -4,6 +4,7 @@ BUNDLE_NAME = hortus
 hortus_FILES = horRootListController.m
 hortus_INSTALL_PATH = /Library/PreferenceBundles
 hortus_FRAMEWORKS = UIKit
+hortus_EXTRA_FRAMEWORKS = Cephei CepheiPrefs
 hortus_PRIVATE_FRAMEWORKS = Preferences
 
 include $(THEOS_MAKE_PATH)/bundle.mk

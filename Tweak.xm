@@ -12,10 +12,6 @@ static double kMass;
 static double kVelo;
 static double kDur;
 
-static void respring(CFNotificationCenterRef center, void *observer, CFStringRef name, const void *object, CFDictionaryRef userInfo) {
-  [[%c(FBSystemService) sharedInstance] exitAndRelaunch:YES];
-}
-
 %hook CASpringAnimation
 
 -(void)setStiffness:(double)arg1 {
@@ -76,11 +72,12 @@ static void respring(CFNotificationCenterRef center, void *observer, CFStringRef
 %end
 
 %ctor {
-    preferences = [[HBPreferences alloc] initWithIdentifier:@"com.shade.ctest"];
+    preferences = [[HBPreferences alloc] initWithIdentifier:@"com.shade.hortus"];
     [preferences registerDefaults:@{
         @"enabled": @NO,
         @"senabled": @NO,
         @"sexempt": @NO,
+        @"Exempt-": @NO,
         @"stiff": @300,
         @"damp": @30,
         @"mass": @1,
@@ -91,16 +88,10 @@ static void respring(CFNotificationCenterRef center, void *observer, CFStringRef
     [preferences registerBool:&kEnabled default:NO forKey:@"enabled"];
     [preferences registerBool:&sEnabled default:NO forKey:@"senabled"];
     [preferences registerBool:&sExempt default:NO forKey:@"sexempt"];
+    [preferences registerBool:&appExempt default:NO forKey:@"Exempt-"];
     [preferences registerDouble:&kStiff default:20 forKey:@"stiff"];
     [preferences registerDouble:&kDamp default:20 forKey:@"damp"];
     [preferences registerDouble:&kMass default:20 forKey:@"mass"];
     [preferences registerDouble:&kVelo default:20 forKey:@"velo"];
     [preferences registerDouble:&kDur default:20 forKey:@"duration"];
-
-    CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(),
-                                        NULL,
-                                        &respring,
-                                        CFSTR("RESPRING"),
-                                        NULL,
-                                        0);
 }
