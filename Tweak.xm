@@ -11,16 +11,6 @@ static double dur = 2;
 
 static void initPrefs() {
 	NSDictionary *HSettings = [NSDictionary dictionaryWithContentsOfFile:HPrefsPath];
-  NSString *bundleID = [[NSBundle mainBundle] bundleIdentifier];
-  NSString *settingsKeyPrefix = @"Exempt-";
-
-      if ([[HSettings allKeys] containsObject:[NSString stringWithFormat:@"%@%@", settingsKeyPrefix, bundleID]]) {
-        if ([[HSettings objectForKey:[NSString stringWithFormat:@"%@%@", settingsKeyPrefix, bundleID]] boolValue]) {
-          appExempt =  YES;
-        } else {
-          appExempt =  NO;
-        }
-      }
 
 	enabled = ([HSettings objectForKey:@"enabled"] ? [[HSettings objectForKey:@"enabled"] boolValue] : enabled);
   senabled = ([HSettings objectForKey:@"senabled"] ? [[HSettings objectForKey:@"senabled"] boolValue] : senabled);
@@ -37,7 +27,6 @@ static void initPrefs() {
       appExempt = NO;
     }
 }
-
 
 %hook CASpringAnimation
 
