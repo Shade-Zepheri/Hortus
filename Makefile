@@ -1,7 +1,7 @@
 TARGET = iphone:clang:9.3
 ARCHS = armv7 arm64
 
-include theos/makefiles/common.mk
+include $(THEOS)/makefiles/common.mk
 
 TWEAK_NAME = Hortus
 Hortus_FILES = Tweak.xm

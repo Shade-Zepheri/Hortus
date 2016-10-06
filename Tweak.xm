@@ -7,7 +7,7 @@ static double stiff = 300;
 static double damp = 30;
 static double mass = 1;
 static double velo = 20;
-static double dur = 2;
+static double dur = 1;
 
 static void initPrefs() {
 	NSDictionary *HSettings = [NSDictionary dictionaryWithContentsOfFile:HPrefsPath];
