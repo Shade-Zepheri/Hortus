@@ -55,8 +55,6 @@
 		<dict>
 			<key>cell</key>
 			<string>PSSliderCell</string>
-			<key>cellClass</key>
-  		<string>BetterPSSliderTableCell</string>
 			<key>min</key>
 			<integer>1</integer>
 			<key>max</key>
@@ -81,8 +79,6 @@
 		<dict>
 			<key>cell</key>
 			<string>PSSliderCell</string>
-			<key>cellClass</key>
-  		<string>BetterPSSliderTableCell</string>
 			<key>min</key>
 			<integer>1</integer>
 			<key>max</key>
@@ -107,8 +103,6 @@
 		<dict>
 			<key>cell</key>
 			<string>PSSliderCell</string>
-			<key>cellClass</key>
-  		<string>BetterPSSliderTableCell</string>
 			<key>min</key>
 			<integer>0</integer>
 			<key>max</key>
@@ -133,8 +127,6 @@
 		<dict>
 			<key>cell</key>
 			<string>PSSliderCell</string>
-			<key>cellClass</key>
-  		<string>BetterPSSliderTableCell</string>
 			<key>min</key>
 			<integer>1</integer>
 			<key>max</key>
