@@ -201,25 +201,58 @@
 			<string>Spring Only in SpringBoard</string>
 		</dict>
 		<dict>
+			<key>bundle</key>
+			<string>AppList</string>
 			<key>cell</key>
-			<string>PSGroupCell</string>
-		</dict>
-		<dict>
-			<key>cell</key>
-			<string>PSButtonCell</string>
-			<key>defaults</key>
-			<string>com.shade.hortus</string>
+			<string>PSLinkCell</string>
+			<key>isController</key>
+			<string>1</string>
 			<key>label</key>
-			<string>Reset Settings</string>
-			<key>action</key>
-			<string>resetSettings</string>
+			<string>Exempt Applications</string>
+			<key>ALSettingsPath</key>
+			<string>/var/mobile/Library/Preferences/com.shade.hortus.plist</string>
+			<key>ALSettingsKeyPrefix</key>
+			<string>Exempt-</string>
+			<key>ALChangeNotification</key>
+			<string>com.shade.hortus/ReloadPrefs</string>
+			<key>PostNotification</key>
+			<string>com.shade.hortus/ReloadPrefs</string>
+			<key>ALAllowsSelection</key>
+			<string>1</string>
+			<key>ALSectionDescriptors</key>
+			<array>
+				<dict>
+					<key>title</key>
+					<string>System Applications</string>
+					<key>predicate</key>
+					<string>(isSystemApplication = TRUE)</string>
+					<key>cell-class-name</key>
+					<string>ALSwitchCell</string>
+					<key>icon-size</key>
+					<string>29</string>
+					<key>suppress-hidden-apps</key>
+					<string>1</string>
+				</dict>
+				<dict>
+					<key>title</key>
+					<string>User Applications</string>
+					<key>predicate</key>
+					<string>isSystemApplication = FALSE</string>
+					<key>cell-class-name</key>
+					<string>ALSwitchCell</string>
+					<key>icon-size</key>
+					<string>29</string>
+					<key>suppress-hidden-apps</key>
+					<string>1</string>
+				</dict>
+			</array>
 		</dict>
 		<dict>
 			<key>cell</key>
 			<string>PSGroupCell</string>
 		</dict>
 		<dict>
-    <key>cellClass</key>
+	    <key>cellClass</key>
     	<string>HBTwitterCell</string>
     	<key>label</key>
     	<string>Shade Zepheri</string>
