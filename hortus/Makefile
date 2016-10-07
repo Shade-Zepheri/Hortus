@@ -1,8 +1,7 @@
 include $(THEOS)/makefiles/common.mk
 
-BetterPSSliderTableCell.mm_CFLAGS = -fobjc-arc
 BUNDLE_NAME = hortus
-hortus_FILES = horRootListController.m BetterPSSliderTableCell.mm
+hortus_FILES = horRootListController.m
 hortus_INSTALL_PATH = /Library/PreferenceBundles
 hortus_FRAMEWORKS = UIKit
 hortus_EXTRA_FRAMEWORKS = Cephei CepheiPrefs

@@ -205,6 +205,20 @@
 			<string>PSGroupCell</string>
 		</dict>
 		<dict>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>defaults</key>
+			<string>com.shade.hortus</string>
+			<key>label</key>
+			<string>Reset Settings</string>
+			<key>action</key>
+			<string>resetSettings</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+		</dict>
+		<dict>
     <key>cellClass</key>
     	<string>HBTwitterCell</string>
     	<key>label</key>
