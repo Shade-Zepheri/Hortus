@@ -2,7 +2,6 @@
 static BOOL enabled = NO;
 static BOOL senabled = NO;
 static BOOL appExempt = NO;
-static BOOL sexempt = NO;
 static double stiff = 300;
 static double damp = 30;
 static double mass = 1;
@@ -16,7 +15,13 @@ static void initPrefs() {
   NSString *settingsKeyPrefix = @"Exempt-";
 
   if ([[HSettings allKeys] containsObject:[NSString stringWithFormat:@"%@%@", settingsKeyPrefix, bundleID]]) {
-    if ([[HSettings objectForKey:[NSString stringWithFormat:@"%@%@", settingsKeyPrefix, bundleID]] boolValue]) {
+		if ([[HSettings objectForKey:@"Exempt-com.apple.springboard"] boolValue]) {
+			if(![[NSString stringWithFormat:@"%@", bundleID] isEqualToString:@"com.apple.springboard"]){
+				appExempt = YES;
+			}else{
+				appExempt = NO;
+			}
+		} else if ([[HSettings objectForKey:[NSString stringWithFormat:@"%@%@", settingsKeyPrefix, bundleID]] boolValue]) {
       appExempt =  YES;
     } else {
       appExempt =  NO;
@@ -25,7 +30,6 @@ static void initPrefs() {
 
 	enabled = ([HSettings objectForKey:@"enabled"] ? [[HSettings objectForKey:@"enabled"] boolValue] : enabled);
   senabled = ([HSettings objectForKey:@"senabled"] ? [[HSettings objectForKey:@"senabled"] boolValue] : senabled);
-  sexempt = ([HSettings objectForKey:@"sexempt"] ? [[HSettings objectForKey:@"sexempt"] boolValue] : sexempt);
   stiff = ([HSettings objectForKey:@"stiff"] ? [[HSettings objectForKey:@"stiff"] doubleValue] : stiff);
   damp = ([HSettings objectForKey:@"damp"] ? [[HSettings objectForKey:@"damp"] doubleValue] : damp);
   mass = ([HSettings objectForKey:@"mass"] ? [[HSettings objectForKey:@"mass"] doubleValue] : mass);

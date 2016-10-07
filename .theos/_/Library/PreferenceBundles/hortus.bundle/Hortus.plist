@@ -196,7 +196,7 @@
 			<key>PostNotification</key>
 			<string>com.shade.hortus/ReloadPrefs</string>
 			<key>key</key>
-			<string>sexempt</string>
+			<string>Exempt-com.apple.springboard</string>
 			<key>label</key>
 			<string>Spring Only in SpringBoard</string>
 		</dict>
