@@ -1,11 +1,10 @@
-TARGET = iphone:clang:9.3
+TARGET = iphone:clang
 ARCHS = armv7 arm64
 
 include $(THEOS)/makefiles/common.mk
 
 TWEAK_NAME = Hortus
 Hortus_FILES = Tweak.xm
-Hortus_EXTRA_FRAMEWORKS = Cephei CepheiPrefs
 
 include $(THEOS_MAKE_PATH)/tweak.mk
 
