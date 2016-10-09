@@ -11,16 +11,15 @@ static double dur = 1;
 static void initPrefs() {
 	NSDictionary *HSettings = [NSDictionary dictionaryWithContentsOfFile:HPrefsPath];
 	NSString *bundleID = [[NSBundle mainBundle] bundleIdentifier];
-	NSString *settingsKeyPrefix = @"Exempt-";
 
-	if ([[HSettings allKeys] containsObject:[NSString stringWithFormat:@"%@%@", settingsKeyPrefix, bundleID]]) {
-			if ([[HSettings objectForKey:@"Exempt-com.apple.springboard"] boolValue]) {
+	if ([[HSettings allKeys] containsObject:[NSString stringWithFormat:@"Exempt-%@", bundleID]]) {
+			if ([[HSettings objectForKey:@"sonly"] boolValue]) {
 				if(![[NSString stringWithFormat:@"%@", bundleID] isEqualToString:@"com.apple.springboard"]){
 					appExempt = YES;
 				}else{
 					appExempt = NO;
 				}
-			}else if([[HSettings objectForKey:[NSString stringWithFormat:@"%@%@", settingsKeyPrefix, bundleID]] boolValue]) {
+			}else if([[HSettings objectForKey:[NSString stringWithFormat:@"Exempt-%@", bundleID]] boolValue]) {
 		      appExempt =  YES;
 		  }else{
 		      appExempt =  NO;
