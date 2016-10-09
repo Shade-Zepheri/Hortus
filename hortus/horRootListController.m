@@ -41,19 +41,19 @@
                                        nil,
                                        true);
 	if (!error) {
-	    UIAlertView *resetSettingsDiag = [[UIAlertView alloc] initWithTitle:@"Prefs Reset"
-													message:@"Preferences were reset sucessfully"
-													delegate:nil
-													cancelButtonTitle:@"Ok"
-													otherButtonTitles: nil];
-		[resetSettingsDiag show];
+		UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Prefs Reset"
+														 message:@"Preferences Were Reset Sucessfully."
+														 preferredStyle:UIAlertControllerStyleAlert];
+		[alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+   	handler:^(UIAlertAction * action) {}]];
+		[self presentViewController:alert animated:YES completion:nil];
 	} else {
-		UIAlertView *resetSettingsDiag = [[UIAlertView alloc] initWithTitle:@"Error"
-													message:[NSString stringWithFormat:@"Error %@", [error localizedDescription]]
-													delegate:nil
-													cancelButtonTitle:@"Ok"
-													otherButtonTitles: nil];
-		[resetSettingsDiag show];
+		UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Error"
+														 message:[NSString stringWithFormat:@"Error %@", [error localizedDescription]]
+														 preferredStyle:UIAlertControllerStyleAlert];
+	 [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+  	handler:^(UIAlertAction * action) {}]];
+		[self presentViewController:alert animated:YES completion:nil];
 	}
 }
 

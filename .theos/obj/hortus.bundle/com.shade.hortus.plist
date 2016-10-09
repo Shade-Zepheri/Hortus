@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>damp</key>
+	<real>30.0</real>
+	<key>duration</key>
+	<real>1.0</real>
+	<key>enabled</key>
+	<true/>
+	<key>mass</key>
+	<real>1.0</real>
+	<key>senabled</key>
+	<true/>
+	<key>sonly</key>
+	<false/>
+	<key>stiff</key>
+	<real>300.0</real>
+	<key>velo</key>
+	<real>20.0</real>
+</dict>
+</plist>
