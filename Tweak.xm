@@ -1,20 +1,48 @@
-static BOOL kEnabled = YES;
-static BOOL sEnabled = YES;
+#define HPrefsPath @"/User/Library/Preferences/com.shade.hortus.plist"
+static BOOL enabled = NO;
+static BOOL senabled = NO;
 static BOOL appExempt = NO;
-static BOOL sExempt = NO;
-static double kStiff = 300;
-static double kDamp = 30;
-static double kMass = 1;
-static double kVelo = 20;
-static double kDur = 1;
+static double stiff = 300;
+static double damp = 30;
+static double mass = 1;
+static double velo = 20;
+static double dur = 1;
+
+static void initPrefs() {
+	NSDictionary *HSettings = [NSDictionary dictionaryWithContentsOfFile:HPrefsPath];
+	NSString *bundleID = [[NSBundle mainBundle] bundleIdentifier];
+
+	if ([[HSettings allKeys] containsObject:[NSString stringWithFormat:@"Exempt-%@", bundleID]]) {
+			if ([[HSettings objectForKey:@"sonly"] boolValue]) {
+				if(![[NSString stringWithFormat:@"%@", bundleID] isEqualToString:@"com.apple.springboard"]){
+					appExempt = YES;
+				}else{
+					appExempt = NO;
+				}
+			}else if([[HSettings objectForKey:[NSString stringWithFormat:@"Exempt-%@", bundleID]] boolValue]) {
+		      appExempt =  YES;
+		  }else{
+		      appExempt =  NO;
+		    }
+		}
+
+	enabled = ([HSettings objectForKey:@"enabled"] ? [[HSettings objectForKey:@"enabled"] boolValue] : enabled);
+  senabled = ([HSettings objectForKey:@"senabled"] ? [[HSettings objectForKey:@"senabled"] boolValue] : senabled);
+  stiff = ([HSettings objectForKey:@"stiff"] ? [[HSettings objectForKey:@"stiff"] doubleValue] : stiff);
+  damp = ([HSettings objectForKey:@"damp"] ? [[HSettings objectForKey:@"damp"] doubleValue] : damp);
+  mass = ([HSettings objectForKey:@"mass"] ? [[HSettings objectForKey:@"mass"] doubleValue] : mass);
+  velo = ([HSettings objectForKey:@"velo"] ? [[HSettings objectForKey:@"velo"] doubleValue] : velo);
+  dur = ([HSettings objectForKey:@"duration"] ? [[HSettings objectForKey:@"duration"] doubleValue] : dur);
+
+}
 
 %hook CASpringAnimation
 
 -(void)setStiffness:(double)arg1 {
   if(appExempt){
     %orig;
-  }else if(kEnabled && sEnabled){
-    arg1 = kStiff;
+  }else if(enabled && senabled){
+    arg1 = stiff;
     %orig(arg1);
   }else{
     %orig;
@@ -24,33 +52,33 @@ static double kDur = 1;
 -(void)setDamping:(double)arg1 {
   if(appExempt){
     %orig;
-  }else if(kEnabled && sEnabled){
-    arg1 = kDamp;
+  }else if(enabled && senabled){
+    arg1 = damp;
     %orig(arg1);
   }else{
-    %orig(arg1);
+    %orig;
   }
 }
 
 -(void)setMass:(double)arg1 {
   if(appExempt){
     %orig;
-  }else if(kEnabled && sEnabled){
-    arg1 = kMass;
+  }else if(enabled && senabled){
+    arg1 = mass;
     %orig(arg1);
   }else{
-    %orig(arg1);
+    %orig;
   }
 }
 
 -(void)setVelocity:(double)arg1 {
   if(appExempt){
     %orig;
-  }else if(kEnabled && sEnabled){
-    arg1 = kVelo;
+  }else if(enabled && senabled){
+    arg1 = velo;
     %orig(arg1);
   }else{
-    %orig(arg1);
+    %orig;
   }
 }
 
@@ -59,53 +87,15 @@ static double kDur = 1;
 %hook CAAnimation
 
 - (void)setDuration:(NSTimeInterval)duration {
-	if(kEnabled){
-		duration = duration * kDur;
+	if(enabled){
+		duration = duration * dur;
 	}
 	%orig(duration);
 }
 
 %end
 
-static void loadPrefs() {
-
-       NSMutableDictionary *prefs = [[NSMutableDictionary alloc] initWithContentsOfFile:@"/private/var/mobile/Library/Preferences/com.shade.hortus.plist"];
-       NSString *bundleID = [[NSBundle mainBundle] bundleIdentifier];
-       NSString *settingsKeyPrefix = @"Exempt-";
-    if(prefs)
-    {
-      if ([[prefs allKeys] containsObject:[NSString stringWithFormat:@"%@%@", settingsKeyPrefix, bundleID]]) {
-        if ([[prefs objectForKey:[NSString stringWithFormat:@"%@%@", settingsKeyPrefix, bundleID]] boolValue]) {
-          appExempt =  YES;
-        } else {
-          appExempt =  NO;
-        }
-      }
-
-      kEnabled = ([prefs objectForKey:@"enabled"] ? [[prefs objectForKey:@"enabled"] boolValue] : kEnabled);
-      sEnabled = ([prefs objectForKey:@"senabled"] ? [[prefs objectForKey:@"senabled"] boolValue] : sEnabled);
-			sExempt = ([prefs objectForKey:@"sexempt"] ? [[prefs objectForKey:@"sexempt"] boolValue] : sExempt);
-			kStiff = ([prefs objectForKey:@"stiff"] ? [[prefs objectForKey:@"stiff"] doubleValue] : kStiff);
-			kDamp = ([prefs objectForKey:@"damp"] ? [[prefs objectForKey:@"damp"] doubleValue] : kDamp);
-			kMass = ([prefs objectForKey:@"mass"] ? [[prefs objectForKey:@"mass"] doubleValue] : kMass);
-			kVelo = ([prefs objectForKey:@"velo"] ? [[prefs objectForKey:@"velo"] doubleValue] : kVelo);
-			kDur = ([prefs objectForKey:@"duration"] ? [[prefs objectForKey:@"duration"] doubleValue] : kDur);
-
-			if(sExempt){
-				appExempt = YES;
-			}else{
-				appExempt = NO;
-			}
-		}
-    [prefs release];
-}
-
-static void settingschanged(CFNotificationCenterRef center, void *observer, CFStringRef name, const void *object, CFDictionaryRef userInfo){
-    loadPrefs();
-}
-
-%ctor{
-
-    CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, settingschanged, CFSTR("com.shade.hortus/settingschanged"), NULL, CFNotificationSuspensionBehaviorCoalesce);
-    loadPrefs();
+%ctor {
+	CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, (CFNotificationCallback)initPrefs, CFSTR("com.shade.hortus/ReloadPrefs"), NULL, CFNotificationSuspensionBehaviorCoalesce);
+	initPrefs();
 }

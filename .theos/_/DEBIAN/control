@@ -1,10 +1,16 @@
 Package: com.shade.hortus
 Name: Hortus
-Depends: mobilesubstrate, preferenceloader, applist
+Depends: firmware (>= 8.4), mobilesubstrate, preferenceloader, applist, ws.hbang.common
 Architecture: iphoneos-arm
 Description: Hook's Law for iOS 9
-Maintainer: Shade Zepheri
-Author: Shade Zepheri
+Depiction: http://shade-zepheri.github.io/depic/index.html?p=com.shade.hortus
+Maintainer: Shade Zepheri <ziroalpha@gmail.com>
+Author: Shade Zepheri <ziroalpha@gmail.com>
 Section: Tweaks
+<<<<<<< HEAD
 Version: 1.1-1
 Installed-Size: 288
+=======
+Version: 1.3
+Installed-Size: 280
+>>>>>>> Beta

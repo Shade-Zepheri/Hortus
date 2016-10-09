@@ -7,6 +7,15 @@
 		<dict>
 			<key>cell</key>
 			<string>PSGroupCell</string>
+<<<<<<< HEAD
+=======
+			<key>headerCellClass</key>
+			<string>HBPackageNameHeaderCell</string>
+			<key>packageIdentifier</key>
+			<string>com.shade.hortus</string>
+			<key>showVersion</key>
+			<false/>
+>>>>>>> Beta
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -16,7 +25,7 @@
 			<key>defaults</key>
 			<string>com.shade.hortus</string>
 			<key>PostNotification</key>
-			<string>com.shade.hortus/settingschanged</string>
+			<string>com.shade.hortus/ReloadPrefs</string>
 			<key>key</key>
 			<string>enabled</string>
 			<key>label</key>
@@ -34,7 +43,7 @@
 			<key>defaults</key>
 			<string>com.shade.hortus</string>
 			<key>PostNotification</key>
-			<string>com.shade.hortus/settingschanged</string>
+			<string>com.shade.hortus/ReloadPrefs</string>
 			<key>key</key>
 			<string>senabled</string>
 			<key>label</key>
@@ -42,67 +51,107 @@
 		</dict>
 		<dict>
 			<key>cell</key>
-			<string>PSEditTextCell</string>
-			<key>default</key>
-			<string>300</string>
-			<key>defaults</key>
-			<string>com.shade.hortus</string>
-			<key>PostNotification</key>
-			<string>com.shade.hortus/settingschanged</string>
-			<key>isNumeric</key>
-			<true/>
-			<key>key</key>
-			<string>stiff</string>
+			<string>PSTitleValueCell</string>
 			<key>label</key>
 			<string>Stiffness</string>
 		</dict>
 		<dict>
 			<key>cell</key>
-			<string>PSEditTextCell</string>
-			<key>default</key>
-			<string>30</string>
+			<string>PSSliderCell</string>
+			<key>cellClass</key>
+  		<string>BetterPSSliderTableCell</string>
+			<key>min</key>
+			<integer>1</integer>
+			<key>max</key>
+			<integer>400</integer>
+			<key>showValue</key>
+			<true/>
+			<key>PostNotification</key>
+			<string>com.shade.hortus/ReloadPrefs</string>
 			<key>defaults</key>
 			<string>com.shade.hortus</string>
-			<key>PostNotification</key>
-			<string>com.shade.hortus/settingschanged</string>
-			<key>isNumeric</key>
-			<true/>
 			<key>key</key>
-			<string>damp</string>
+			<string>stiff</string>
+			<key>default</key>
+			<real>300</real>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSTitleValueCell</string>
 			<key>label</key>
 			<string>Damping</string>
 		</dict>
 		<dict>
 			<key>cell</key>
-			<string>PSEditTextCell</string>
-			<key>default</key>
-			<string>1</string>
+			<string>PSSliderCell</string>
+			<key>cellClass</key>
+  		<string>BetterPSSliderTableCell</string>
+			<key>min</key>
+			<integer>1</integer>
+			<key>max</key>
+			<integer>40</integer>
+			<key>showValue</key>
+			<true/>
+			<key>PostNotification</key>
+			<string>com.shade.hortus/ReloadPrefs</string>
 			<key>defaults</key>
 			<string>com.shade.hortus</string>
-			<key>PostNotification</key>
-			<string>com.shade.hortus/settingschanged</string>
-			<key>isNumeric</key>
-			<true/>
 			<key>key</key>
-			<string>mass</string>
+			<string>damp</string>
+			<key>default</key>
+			<real>30</real>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSTitleValueCell</string>
 			<key>label</key>
 			<string>Mass</string>
 		</dict>
 		<dict>
 			<key>cell</key>
-			<string>PSEditTextCell</string>
-			<key>default</key>
-			<string>20</string>
+			<string>PSSliderCell</string>
+			<key>cellClass</key>
+  		<string>BetterPSSliderTableCell</string>
+			<key>min</key>
+			<integer>0</integer>
+			<key>max</key>
+			<integer>2</integer>
+			<key>showValue</key>
+			<true/>
+			<key>PostNotification</key>
+			<string>com.shade.hortus/ReloadPrefs</string>
 			<key>defaults</key>
 			<string>com.shade.hortus</string>
-			<key>PostNotification</key>
-			<string>com.shade.hortus/settingschanged</string>
-			<key>isNumeric</key>
-			<true/>
 			<key>key</key>
-			<string>velo</string>
+			<string>mass</string>
+			<key>default</key>
+			<real>1</real>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSTitleValueCell</string>
 			<key>label</key>
 			<string>Velocity</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSliderCell</string>
+			<key>cellClass</key>
+  		<string>BetterPSSliderTableCell</string>
+			<key>min</key>
+			<integer>1</integer>
+			<key>max</key>
+			<integer>30</integer>
+			<key>showValue</key>
+			<true/>
+			<key>PostNotification</key>
+			<string>com.shade.hortus/ReloadPrefs</string>
+			<key>defaults</key>
+			<string>com.shade.hortus</string>
+			<key>key</key>
+			<string>velo</string>
+			<key>default</key>
+			<real>20</real>
 		</dict>
 		<dict>
 			<key>cell</key>
@@ -112,7 +161,7 @@
 			<key>defaults</key>
 			<string>com.shade.hortus</string>
 			<key>PostNotification</key>
-			<string>com.shade.hortus/settingschanged</string>
+			<string>com.shade.hortus/ReloadPrefs</string>
 			<key>detail</key>
 			<string>PSListItemsController</string>
 			<key>key</key>
@@ -156,11 +205,19 @@
 			<key>defaults</key>
 			<string>com.shade.hortus</string>
 			<key>PostNotification</key>
+<<<<<<< HEAD
 			<string>com.shade.hortus/settingschanged</string>
 			<key>key</key>
 			<string>sexempt</string>
 			<key>label</key>
 			<string>Only in SpringBoard</string>
+=======
+			<string>com.shade.hortus/ReloadPrefs</string>
+			<key>key</key>
+			<string>sonly</string>
+			<key>label</key>
+			<string>Spring Only in SpringBoard</string>
+>>>>>>> Beta
 		</dict>
 		<dict>
 			<key>bundle</key>
@@ -172,13 +229,13 @@
 			<key>label</key>
 			<string>Exempt Applications</string>
 			<key>ALSettingsPath</key>
-			<string>/private/var/mobile/Library/Preferences/com.shade.hortus.plist</string>
+			<string>/var/mobile/Library/Preferences/com.shade.hortus.plist</string>
 			<key>ALSettingsKeyPrefix</key>
 			<string>Exempt-</string>
 			<key>ALChangeNotification</key>
-			<string>com.shade.hortus/settingschanged</string>
+			<string>com.shade.hortus/ReloadPrefs</string>
 			<key>PostNotification</key>
-			<string>com.shade.hortus/settingschanged</string>
+			<string>com.shade.hortus/ReloadPrefs</string>
 			<key>ALAllowsSelection</key>
 			<string>1</string>
 			<key>ALSectionDescriptors</key>
@@ -187,7 +244,7 @@
 					<key>title</key>
 					<string>System Applications</string>
 					<key>predicate</key>
-					<string>isSystemApplication = TRUE</string>
+					<string>(isSystemApplication = TRUE)</string>
 					<key>cell-class-name</key>
 					<string>ALSwitchCell</string>
 					<key>icon-size</key>
@@ -214,32 +271,32 @@
 			<string>PSGroupCell</string>
 		</dict>
 		<dict>
-			<key>action</key>
-			<string>respring</string>
 			<key>cell</key>
 			<string>PSButtonCell</string>
 			<key>label</key>
-			<string>Apply Changes (Respring)</string>
+			<string>Reset Settings</string>
+			<key>defaults</key>
+			<string>com.shade.hortus</string>
+			<key>PostNotification</key>
+			<string>com.shade.hortus/ReloadPrefs</string>
+			<key>action</key>
+			<string>resetSettings</string>
 		</dict>
 		<dict>
 			<key>cell</key>
 			<string>PSGroupCell</string>
 		</dict>
 		<dict>
-			<key>action</key>
-			<string>twitter</string>
-			<key>cell</key>
-			<string>PSButtonCell</string>
-			<key>icon</key>
-			<string>twitter.png</string>
-			<key>label</key>
-			<string>Follow me on Twitter (@ShadeZepheri)</string>
+	    <key>cellClass</key>
+    	<string>HBTwitterCell</string>
+    	<key>label</key>
+    	<string>Shade Zepheri</string>
+    	<key>user</key>
+    	<string>ShadeZepheri</string>
 		</dict>
 		<dict>
 			<key>action</key>
 			<string>sendEmail</string>
-			<key>icon</key>
-			<string>mail.png</string>
 			<key>cell</key>
 			<string>PSButtonCell</string>
 			<key>label</key>
