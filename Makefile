@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-TARGET = iphone:clang:9.3
-=======
->>>>>>> Beta
 ARCHS = armv7 arm64
 
 include $(THEOS)/makefiles/common.mk
