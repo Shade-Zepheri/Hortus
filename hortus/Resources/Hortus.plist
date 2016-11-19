@@ -8,6 +8,7 @@
 			<key>cell</key>
 			<string>PSGroupCell</string>
 		</dict>
+		<dict>
 			<key>headerCellClass</key>
 			<string>HBPackageNameHeaderCell</string>
 			<key>packageIdentifier</key>
