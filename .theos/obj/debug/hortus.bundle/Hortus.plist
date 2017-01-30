@@ -8,13 +8,6 @@
 			<key>cell</key>
 			<string>PSGroupCell</string>
 		</dict>
-			<key>headerCellClass</key>
-			<string>HBPackageNameHeaderCell</string>
-			<key>packageIdentifier</key>
-			<string>com.shade.hortus</string>
-			<key>showVersion</key>
-			<false/>
-		</dict>
 		<dict>
 			<key>cell</key>
 			<string>PSSwitchCell</string>
@@ -43,7 +36,7 @@
 			<key>PostNotification</key>
 			<string>com.shade.hortus/ReloadPrefs</string>
 			<key>key</key>
-			<string>senabled</string>
+			<string>springEnabled</string>
 			<key>label</key>
 			<string>Spring Enabled</string>
 		</dict>
@@ -69,7 +62,7 @@
 			<key>defaults</key>
 			<string>com.shade.hortus</string>
 			<key>key</key>
-			<string>stiff</string>
+			<string>stiffness</string>
 			<key>default</key>
 			<real>300</real>
 		</dict>
@@ -95,7 +88,7 @@
 			<key>defaults</key>
 			<string>com.shade.hortus</string>
 			<key>key</key>
-			<string>damp</string>
+			<string>damping</string>
 			<key>default</key>
 			<real>30</real>
 		</dict>
@@ -147,7 +140,7 @@
 			<key>defaults</key>
 			<string>com.shade.hortus</string>
 			<key>key</key>
-			<string>velo</string>
+			<string>velocity</string>
 			<key>default</key>
 			<real>20</real>
 		</dict>
@@ -163,7 +156,7 @@
 			<key>detail</key>
 			<string>PSListItemsController</string>
 			<key>key</key>
-			<string>duration</string>
+			<string>multiplier</string>
 			<key>label</key>
 			<string>Animation Speed</string>
 			<key>validTitles</key>
@@ -205,7 +198,7 @@
 			<key>PostNotification</key>
 			<string>com.shade.hortus/ReloadPrefs</string>
 			<key>key</key>
-			<string>sonly</string>
+			<string>SpringBoardOnly</string>
 			<key>label</key>
 			<string>Spring Only in SpringBoard</string>
 		</dict>
@@ -277,20 +270,34 @@
 			<string>PSGroupCell</string>
 		</dict>
 		<dict>
-	    <key>cellClass</key>
-    	<string>HBTwitterCell</string>
-    	<key>label</key>
-    	<string>Shade Zepheri</string>
-    	<key>user</key>
-    	<string>ShadeZepheri</string>
+			<key>action</key>
+			<string>twitter</string>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>icon</key>
+			<string>twitter.png</string>
+			<key>label</key>
+			<string>Twitter</string>
 		</dict>
 		<dict>
 			<key>action</key>
 			<string>sendEmail</string>
 			<key>cell</key>
 			<string>PSButtonCell</string>
+			<key>icon</key>
+			<string>mail.png</string>
 			<key>label</key>
 			<string>Email Support</string>
+		</dict>
+		<dict>
+			<key>action</key>
+			<string>github</string>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>icon</key>
+			<string>github.png</string>
+			<key>label</key>
+			<string>Source Code</string>
 		</dict>
 	</array>
 	<key>title</key>

@@ -1,98 +1,87 @@
 #define HPrefsPath @"/User/Library/Preferences/com.shade.hortus.plist"
-static BOOL enabled = NO;
-static BOOL senabled = NO;
-static BOOL appExempt = NO;
-static double stiff = 300;
-static double damp = 30;
-static double mass = 1;
-static double velo = 20;
-static double dur = 1;
+BOOL enabled = NO;
+BOOL springEnabled = NO;
+BOOL appExempt = NO;
+CGFloat stiffness = 300;
+CGFloat damping = 30;
+CGFloat mass = 1;
+CGFloat velocity = 20;
+CGFloat durationMultiplier = 1;
 
-static void initPrefs() {
+void initPrefs() {
 	NSDictionary *HSettings = [NSDictionary dictionaryWithContentsOfFile:HPrefsPath];
 	NSString *bundleID = [[NSBundle mainBundle] bundleIdentifier];
 
-	if ([[HSettings allKeys] containsObject:[NSString stringWithFormat:@"Exempt-%@", bundleID]]) {
-			if ([[HSettings objectForKey:@"sonly"] boolValue]) {
-				if(![[NSString stringWithFormat:@"%@", bundleID] isEqualToString:@"com.apple.springboard"]){
-					appExempt = YES;
-				}else{
-					appExempt = NO;
-				}
-			}else if([[HSettings objectForKey:[NSString stringWithFormat:@"Exempt-%@", bundleID]] boolValue]) {
-		      appExempt =  YES;
-		  }else{
-		      appExempt =  NO;
-		    }
+	if ([[HSettings objectForKey:@"SpringBoardOnly"] boolValue]) {
+		if ([bundleID isEqualToString:@"com.apple.springboard"]) {
+			appExempt = YES;
 		}
+	} else if ([[HSettings objectForKey:[NSString stringWithFormat:@"Exempt-%@", bundleID]] boolValue]) {
+		appExempt = YES;
+	} else {
+		appExempt = NO;
+	}
 
 	enabled = ([HSettings objectForKey:@"enabled"] ? [[HSettings objectForKey:@"enabled"] boolValue] : enabled);
-  senabled = ([HSettings objectForKey:@"senabled"] ? [[HSettings objectForKey:@"senabled"] boolValue] : senabled);
-  stiff = ([HSettings objectForKey:@"stiff"] ? [[HSettings objectForKey:@"stiff"] doubleValue] : stiff);
-  damp = ([HSettings objectForKey:@"damp"] ? [[HSettings objectForKey:@"damp"] doubleValue] : damp);
-  mass = ([HSettings objectForKey:@"mass"] ? [[HSettings objectForKey:@"mass"] doubleValue] : mass);
-  velo = ([HSettings objectForKey:@"velo"] ? [[HSettings objectForKey:@"velo"] doubleValue] : velo);
-  dur = ([HSettings objectForKey:@"duration"] ? [[HSettings objectForKey:@"duration"] doubleValue] : dur);
+  springEnabled = ([HSettings objectForKey:@"springEnabled"] ? [[HSettings objectForKey:@"springEnabled"] boolValue] : springEnabled);
+  stiffness = ([HSettings objectForKey:@"stiffness"] ? [[HSettings objectForKey:@"stiffness"] floatValue] : stiffness);
+  damping = ([HSettings objectForKey:@"damping"] ? [[HSettings objectForKey:@"damping"] floatValue] : damping);
+  mass = ([HSettings objectForKey:@"mass"] ? [[HSettings objectForKey:@"mass"] floatValue] : mass);
+  velocity = ([HSettings objectForKey:@"velocity"] ? [[HSettings objectForKey:@"velocity"] floatValue] : velocity);
+  durationMultiplier = ([HSettings objectForKey:@"multiplier"] ? [[HSettings objectForKey:@"multiplier"] floatValue] : durationMultiplier);
 
 }
 
 %hook CASpringAnimation
-
--(void)setStiffness:(double)arg1 {
-  if(appExempt){
+- (void)setStiffness:(CGFloat)arg1 {
+  if (appExempt) {
     %orig;
-  }else if(enabled && senabled){
-    arg1 = stiff;
-    %orig(arg1);
-  }else{
+  } else if (enabled && springEnabled){
+    %orig(stiffness);
+  } else {
     %orig;
   }
 }
 
--(void)setDamping:(double)arg1 {
-  if(appExempt){
+- (void)setDamping:(CGFloat)arg1 {
+  if (appExempt) {
     %orig;
-  }else if(enabled && senabled){
-    arg1 = damp;
-    %orig(arg1);
-  }else{
+  } else if (enabled && springEnabled) {
+    %orig(damping);
+  } else {
     %orig;
   }
 }
 
--(void)setMass:(double)arg1 {
-  if(appExempt){
+- (void)setMass:(CGFloat)arg1 {
+  if (appExempt) {
     %orig;
-  }else if(enabled && senabled){
+  } else if (enabled && springEnabled) {
     arg1 = mass;
     %orig(arg1);
-  }else{
+  } else {
     %orig;
   }
 }
 
--(void)setVelocity:(double)arg1 {
-  if(appExempt){
+- (void)setVelocity:(CGFloat)arg1 {
+  if (appExempt) {
     %orig;
-  }else if(enabled && senabled){
-    arg1 = velo;
-    %orig(arg1);
-  }else{
+  } else if (enabled && springEnabled){
+    %orig(velocity);
+  } else {
     %orig;
   }
 }
-
 %end
 
 %hook CAAnimation
-
 - (void)setDuration:(NSTimeInterval)duration {
-	if(enabled){
-		duration = duration * dur;
+	if (enabled) {
+		duration = duration * durationMultiplier;
 	}
 	%orig(duration);
 }
-
 %end
 
 %ctor {

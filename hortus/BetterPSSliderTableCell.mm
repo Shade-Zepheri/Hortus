@@ -1,7 +1,4 @@
-
-
 #import "BetterPSSliderTableCell.h"
-
 
 @implementation BetterPSSliderTableCell
 

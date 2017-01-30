@@ -1,4 +1,6 @@
+TARGET = iphone:10.1
 ARCHS = armv7 arm64
+CFLAGS = -fobjc-arc -O2
 
 include $(THEOS)/makefiles/common.mk
 
