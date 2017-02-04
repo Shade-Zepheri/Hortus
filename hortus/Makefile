@@ -1,10 +1,10 @@
 TARGET = iphone:9.2
-CFLAGS = -fobjc-arc -O2 -Wno-deprecated-declarations
+CFLAGS = -fobjc-arc -O2
 
 include $(THEOS)/makefiles/common.mk
 
 BUNDLE_NAME = hortus
-hortus_FILES = HORRootListController.m BetterPSSliderTableCell.mm
+hortus_FILES = $(wildcard *.m)
 hortus_INSTALL_PATH = /Library/PreferenceBundles
 hortus_FRAMEWORKS = UIKit
 hortus_PRIVATE_FRAMEWORKS = Preferences

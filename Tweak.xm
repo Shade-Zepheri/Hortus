@@ -8,7 +8,7 @@ CGFloat mass = 1;
 CGFloat velocity = 20;
 CGFloat durationMultiplier = 1;
 
-void initPrefs() {
+void loadPrefs(CFNotificationCenterRef center, void *observer, CFStringRef name, const void *object, CFDictionaryRef userInfo) {
 	NSDictionary *HSettings = [NSDictionary dictionaryWithContentsOfFile:HPrefsPath];
 	NSString *bundleID = [[NSBundle mainBundle] bundleIdentifier];
 
@@ -29,14 +29,13 @@ void initPrefs() {
   mass = ([HSettings objectForKey:@"mass"] ? [[HSettings objectForKey:@"mass"] floatValue] : mass);
   velocity = ([HSettings objectForKey:@"velocity"] ? [[HSettings objectForKey:@"velocity"] floatValue] : velocity);
   durationMultiplier = ([HSettings objectForKey:@"multiplier"] ? [[HSettings objectForKey:@"multiplier"] floatValue] : durationMultiplier);
-
 }
 
 %hook CASpringAnimation
 - (void)setStiffness:(CGFloat)arg1 {
   if (appExempt) {
     %orig;
-  } else if (enabled && springEnabled){
+  } else if (enabled && springEnabled) {
     %orig(stiffness);
   } else {
     %orig;
@@ -67,7 +66,7 @@ void initPrefs() {
 - (void)setVelocity:(CGFloat)arg1 {
   if (appExempt) {
     %orig;
-  } else if (enabled && springEnabled){
+  } else if (enabled && springEnabled) {
     %orig(velocity);
   } else {
     %orig;
@@ -85,6 +84,6 @@ void initPrefs() {
 %end
 
 %ctor {
-	CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, (CFNotificationCallback)initPrefs, CFSTR("com.shade.hortus/ReloadPrefs"), NULL, CFNotificationSuspensionBehaviorCoalesce);
-	initPrefs();
+	CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, &loadPrefs, CFSTR("com.shade.hortus/ReloadPrefs"), NULL, 0);
+	loadPrefs(nil, nil, nil, nil, nil);
 }
