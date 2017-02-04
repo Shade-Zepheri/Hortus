@@ -4,7 +4,9 @@
 .debmake
 _
 obj
-.theos
+.theos/*
+.theos/
+packages/*
 *.bak
 debs/
 theos
@@ -18,3 +20,6 @@ sloc.sh
 *_TODO.*
 TODO_*
 _TODO_*
+
+.*
+!/.gitignore

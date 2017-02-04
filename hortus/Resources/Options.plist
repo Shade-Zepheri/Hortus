@@ -217,20 +217,20 @@
           <key>suppress-hidden-apps</key>
           <string>1</string>
         </dict>
-				<dict>
-		      <key>cell</key>
-		      <string>PSGroupCell</string>
-		    </dict>
-				<dict>
-					<key>action</key>
-					<string>resetSettings</string>
-					<key>cell</key>
-					<string>PSButtonCell</string>
-					<key>label</key>
-					<string>Reset Settings</string>
-				</dict>
       </array>
     </dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+		</dict>
+		<dict>
+			<key>action</key>
+			<string>resetSettings</string>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>label</key>
+			<string>Reset Settings</string>
+		</dict>
   </array>
   <key>title</key>
   <string>Options</string>

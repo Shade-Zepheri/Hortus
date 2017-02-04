@@ -13,7 +13,7 @@ void loadPrefs(CFNotificationCenterRef center, void *observer, CFStringRef name,
 	NSString *bundleID = [NSBundle mainBundle].bundleIdentifier;
 
 	if ([[HSettings objectForKey:@"SpringBoardOnly"] boolValue]) {
-		if ([bundleID isEqualToString:@"com.apple.springboard"]) {
+		if (![bundleID isEqualToString:@"com.apple.springboard"]) {
 			appExempt = YES;
 		}
 	} else if ([[HSettings objectForKey:[NSString stringWithFormat:@"Exempt-%@", bundleID]] boolValue]) {
