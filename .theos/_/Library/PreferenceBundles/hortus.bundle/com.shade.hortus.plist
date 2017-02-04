@@ -2,21 +2,19 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>damp</key>
-	<real>30.0</real>
-	<key>duration</key>
-	<real>1.0</real>
 	<key>enabled</key>
-	<true/>
-	<key>mass</key>
-	<real>1.0</real>
-	<key>senabled</key>
-	<true/>
-	<key>sonly</key>
 	<false/>
-	<key>stiff</key>
-	<real>300.0</real>
-	<key>velo</key>
-	<real>20.0</real>
+	<key>springEnabled</key>
+	<false/>
+	<key>stiffness</key>
+	<real>300</real>
+	<key>damping</key>
+	<real>30</real>
+	<key>mass</key>
+	<real>1</real>
+	<key>velocity</key>
+	<real>20</real>
+	<key>multiplier</key>
+	<real>1</real>
 </dict>
 </plist>

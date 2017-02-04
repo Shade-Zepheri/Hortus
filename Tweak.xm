@@ -10,7 +10,7 @@ CGFloat durationMultiplier = 1;
 
 void loadPrefs(CFNotificationCenterRef center, void *observer, CFStringRef name, const void *object, CFDictionaryRef userInfo) {
 	NSDictionary *HSettings = [NSDictionary dictionaryWithContentsOfFile:HPrefsPath];
-	NSString *bundleID = [[NSBundle mainBundle] bundleIdentifier];
+	NSString *bundleID = [NSBundle mainBundle].bundleIdentifier;
 
 	if ([[HSettings objectForKey:@"SpringBoardOnly"] boolValue]) {
 		if ([bundleID isEqualToString:@"com.apple.springboard"]) {

@@ -1,4 +1,4 @@
-#include "Main.h"
+#import "Main.h"
 
 @implementation HOROptionsController
 
@@ -31,11 +31,7 @@
 	NSError *error = nil;
 	[[NSFileManager defaultManager] removeItemAtPath:HPrefsPath error:&error];
 	[[NSFileManager defaultManager] copyItemAtPath:DPrefsPath toPath:HPrefsPath error:&error];
-	CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(),
-                                       CFSTR("com.shade.hortus/ReloadPrefs"),
-                                       nil,
-                                       nil,
-                                       true);
+	CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), CFSTR("com.shade.hortus/ReloadPrefs"), NULL, NULL, YES);
 	if (!error) {
 		UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Prefs Reset"
 														 message:@"Preferences Were Reset Sucessfully."

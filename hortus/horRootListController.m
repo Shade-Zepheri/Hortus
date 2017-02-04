@@ -1,4 +1,4 @@
-#include "Main.h"
+#import "Main.h"
 
 @implementation HORRootListController
 
@@ -16,7 +16,7 @@
 	CGRect frame = CGRectMake(0, 0, self.table.bounds.size.width, 127);
 
 	UIImage *headerImage = [[UIImage alloc]
-		initWithContentsOfFile:[[NSBundle bundleWithPath:@"/Library/PreferenceBundles/hortus.bundle"] pathForResource:@"HortusHeader" ofType:@"png"]];
+		initWithContentsOfFile:[[NSBundle bundleWithPath:@"/Library/PreferenceBundles/Hortus.bundle"] pathForResource:@"HortusHeader" ofType:@"png"]];
 
 	UIImageView *headerView = [[UIImageView alloc] initWithFrame:frame];
 	[headerView setImage:headerImage];
