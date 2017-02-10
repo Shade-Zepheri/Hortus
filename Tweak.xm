@@ -1,15 +1,14 @@
-#define HPrefsPath @"/User/Library/Preferences/com.shade.hortus.plist"
-BOOL enabled = NO;
-BOOL springEnabled = NO;
+BOOL enabled;
+BOOL springEnabled;
 BOOL appExempt = NO;
-CGFloat stiffness = 300;
-CGFloat damping = 30;
-CGFloat mass = 1;
-CGFloat velocity = 20;
-CGFloat durationMultiplier = 1;
+CGFloat stiffness;
+CGFloat damping;
+CGFloat mass;
+CGFloat velocity;
+CGFloat durationMultiplier;
 
-void loadPrefs(CFNotificationCenterRef center, void *observer, CFStringRef name, const void *object, CFDictionaryRef userInfo) {
-	NSDictionary *HSettings = [NSDictionary dictionaryWithContentsOfFile:HPrefsPath];
+void loadPrefs() {
+	NSDictionary *HSettings = [NSDictionary dictionaryWithContentsOfFile:@"/User/Library/Preferences/com.shade.hortus.plist"];
 	NSString *bundleID = [NSBundle mainBundle].bundleIdentifier;
 
 	if ([[HSettings objectForKey:@"SpringBoardOnly"] boolValue]) {
@@ -22,20 +21,18 @@ void loadPrefs(CFNotificationCenterRef center, void *observer, CFStringRef name,
 		appExempt = NO;
 	}
 
-	enabled = ([HSettings objectForKey:@"enabled"] ? [[HSettings objectForKey:@"enabled"] boolValue] : enabled);
-  springEnabled = ([HSettings objectForKey:@"springEnabled"] ? [[HSettings objectForKey:@"springEnabled"] boolValue] : springEnabled);
-  stiffness = ([HSettings objectForKey:@"stiffness"] ? [[HSettings objectForKey:@"stiffness"] floatValue] : stiffness);
-  damping = ([HSettings objectForKey:@"damping"] ? [[HSettings objectForKey:@"damping"] floatValue] : damping);
-  mass = ([HSettings objectForKey:@"mass"] ? [[HSettings objectForKey:@"mass"] floatValue] : mass);
-  velocity = ([HSettings objectForKey:@"velocity"] ? [[HSettings objectForKey:@"velocity"] floatValue] : velocity);
-  durationMultiplier = ([HSettings objectForKey:@"multiplier"] ? [[HSettings objectForKey:@"multiplier"] floatValue] : durationMultiplier);
+	enabled = ![HSettings objectForKey:@"enabled"] ? NO : [[HSettings objectForKey:@"enabled"] boolValue];
+  springEnabled = ![HSettings objectForKey:@"springEnabled"] ? NO : [[HSettings objectForKey:@"springEnabled"] boolValue];
+  stiffness = ![HSettings objectForKey:@"stiffness"] ? 300 : [[HSettings objectForKey:@"stiffness"] floatValue];
+  damping = ![HSettings objectForKey:@"damping"] ? 30 : [[HSettings objectForKey:@"damping"] floatValue];
+  mass = ![HSettings objectForKey:@"mass"] ? 1 : [[HSettings objectForKey:@"mass"] floatValue];
+  velocity = ![HSettings objectForKey:@"velocity"] ? 20 : [[HSettings objectForKey:@"velocity"] floatValue];
+  durationMultiplier = ![HSettings objectForKey:@"multiplier"] ? 1 : [[HSettings objectForKey:@"multiplier"] floatValue];
 }
 
 %hook CASpringAnimation
 - (void)setStiffness:(CGFloat)arg1 {
-  if (appExempt) {
-    %orig;
-  } else if (enabled && springEnabled) {
+	if (enabled && springEnabled && !appExempt) {
     %orig(stiffness);
   } else {
     %orig;
@@ -43,9 +40,7 @@ void loadPrefs(CFNotificationCenterRef center, void *observer, CFStringRef name,
 }
 
 - (void)setDamping:(CGFloat)arg1 {
-  if (appExempt) {
-    %orig;
-  } else if (enabled && springEnabled) {
+	if (enabled && springEnabled && !appExempt) {
     %orig(damping);
   } else {
     %orig;
@@ -53,20 +48,15 @@ void loadPrefs(CFNotificationCenterRef center, void *observer, CFStringRef name,
 }
 
 - (void)setMass:(CGFloat)arg1 {
-  if (appExempt) {
-    %orig;
-  } else if (enabled && springEnabled) {
-    arg1 = mass;
-    %orig(arg1);
+	if (enabled && springEnabled && !appExempt) {
+    %orig(mass);
   } else {
     %orig;
   }
 }
 
 - (void)setVelocity:(CGFloat)arg1 {
-  if (appExempt) {
-    %orig;
-  } else if (enabled && springEnabled) {
+	if (enabled && springEnabled && !appExempt) {
     %orig(velocity);
   } else {
     %orig;
@@ -84,6 +74,6 @@ void loadPrefs(CFNotificationCenterRef center, void *observer, CFStringRef name,
 %end
 
 %ctor {
-	CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, &loadPrefs, CFSTR("com.shade.hortus/ReloadPrefs"), NULL, 0);
-	loadPrefs(nil, nil, nil, nil, nil);
+	CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(), NULL, (CFNotificationCallback)loadPrefs, CFSTR("com.shade.hortus/ReloadPrefs"), NULL, CFNotificationSuspensionBehaviorCoalesce);
+	loadPrefs();
 }

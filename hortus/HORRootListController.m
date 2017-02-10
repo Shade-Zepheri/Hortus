@@ -37,20 +37,20 @@
 }
 
 - (id)readPreferenceValue:(PSSpecifier*)specifier {
-	NSString *path = [NSString stringWithFormat:@"/User/Library/Preferences/%@.plist", specifier.properties[@"defaults"]];
-	NSDictionary *settings = [NSDictionary dictionaryWithContentsOfFile:path];
-	return (settings[specifier.properties[@"key"]]) ?: specifier.properties[@"default"];
+	NSDictionary *HSettings = [NSDictionary dictionaryWithContentsOfFile:HPrefsPath];
+	if (!HSettings[specifier.properties[@"key"]]) {
+		return specifier.properties[@"default"];
+	}
+	return HSettings[specifier.properties[@"key"]];
 }
 
 - (void)setPreferenceValue:(id)value specifier:(PSSpecifier*)specifier {
-	NSString *path = [NSString stringWithFormat:@"/User/Library/Preferences/%@.plist", specifier.properties[@"defaults"]];
-	NSMutableDictionary *settings = [NSMutableDictionary dictionaryWithContentsOfFile:path];
-	[settings setObject:value forKey:specifier.properties[@"key"]];
-	[settings writeToFile:path atomically:YES];
-	CFStringRef notification = (__bridge CFStringRef)specifier.properties[@"PostNotification"];
-	if (notification) {
-		CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), notification, NULL, NULL, YES);
-	}
+	NSMutableDictionary *defaults = [NSMutableDictionary dictionary];
+	[defaults addEntriesFromDictionary:[NSDictionary dictionaryWithContentsOfFile:HPrefsPath]];
+	[defaults setObject:value forKey:specifier.properties[@"key"]];
+	[defaults writeToFile:HPrefsPath atomically:YES];
+	CFStringRef HPost = (__bridge CFStringRef)specifier.properties[@"PostNotification"];
+	CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), HPost, NULL, NULL, YES);
 }
 
 @end
