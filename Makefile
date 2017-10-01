@@ -1,14 +1,14 @@
-TARGET = iphone:9.2
-CFLAGS = -fobjc-arc -O2
+export TARGET = iphone:9.3
+CFLAGS = -fobjc-arc
+
+INSTALL_TARGET_PROCESSES = SpringBoard
 
 include $(THEOS)/makefiles/common.mk
 
 TWEAK_NAME = Hortus
-Hortus_FILES = Tweak.xm
+Hortus_FILES = Tweak.x
+
+SUBPROJECTS = hortus
 
 include $(THEOS_MAKE_PATH)/tweak.mk
-
-after-install::
-	install.exec "killall -9 SpringBoard"
-SUBPROJECTS += hortus
 include $(THEOS_MAKE_PATH)/aggregate.mk

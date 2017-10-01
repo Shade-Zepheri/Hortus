@@ -1,13 +1,12 @@
-TARGET = iphone:9.2
-CFLAGS = -fobjc-arc -O2
-
 include $(THEOS)/makefiles/common.mk
 
 BUNDLE_NAME = Hortus
-Hortus_FILES = HORRootListController.m HOROptionsController.m HORAboutController.m
+Hortus_FILES = $(wildcard *.m)
 Hortus_INSTALL_PATH = /Library/PreferenceBundles
+Hortus_CFLAGS = -fobjc-arc
 Hortus_FRAMEWORKS = UIKit
 Hortus_PRIVATE_FRAMEWORKS = Preferences
+Hortus_EXTRA_FRAMEWORKS = Cephei CepheiPrefs
 
 include $(THEOS_MAKE_PATH)/bundle.mk
 
