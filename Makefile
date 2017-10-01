@@ -1,7 +1,11 @@
 export TARGET = iphone:9.3
 CFLAGS = -fobjc-arc
 
-INSTALL_TARGET_PROCESSES = SpringBoard
+INSTALL_TARGET_PROCESSES = Preferences
+
+ifneq ($(RESPRING),0)
+INSTALL_TARGET_PROCESSES += SpringBoard
+endif
 
 include $(THEOS)/makefiles/common.mk
 

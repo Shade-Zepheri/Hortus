@@ -9,7 +9,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    CGRect frame = CGRectMake(0, 0, self.table.bounds.size.width, 127);
+    CGRect frame = CGRectMake(0, 0, [self table].bounds.size.width, 127);
 
     UIImage *headerImage = [[UIImage alloc] initWithContentsOfFile:[[NSBundle bundleWithPath:@"/Library/PreferenceBundles/Hortus.bundle"] pathForResource:@"HortusHeader" ofType:@"png"]];
 
@@ -19,16 +19,16 @@
     headerView.contentMode = UIViewContentModeScaleAspectFit;
     headerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 
-    self.table.tableHeaderView = headerView;
+    [self table].tableHeaderView = headerView;
 }
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
 
-    CGRect wrapperFrame = ((UIView *)self.table.subviews[0]).frame;
-    CGRect frame = CGRectMake(wrapperFrame.origin.x, self.table.tableHeaderView.frame.origin.y, wrapperFrame.size.width, self.table.tableHeaderView.frame.size.height);
+    CGRect wrapperFrame = ((UIView *)[self table].subviews[0]).frame;
+    CGRect frame = CGRectMake(wrapperFrame.origin.x, [self table].tableHeaderView.frame.origin.y, wrapperFrame.size.width, [self table].tableHeaderView.frame.size.height);
 
-    self.table.tableHeaderView.frame = frame;
+    [self table].tableHeaderView.frame = frame;
 }
 
 - (id)readPreferenceValue:(PSSpecifier *)specifier {
